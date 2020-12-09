@@ -15,4 +15,7 @@ class Message extends Model
     public function recepient() {
         return $this->belongsTo(User::class , 'recepient');
     }
+    public function discussion() {
+        return $this->belongsTo(Discussion::class);
+    }
 }

@@ -55,4 +55,7 @@ class User extends Authenticatable
     public function recievedMessages(){
         return $this->hasMany(Message::class , 'recepient');
     }
+    public function discussions(){
+        return $this->belongsToMany(Discussion::class);
+    }
 }
