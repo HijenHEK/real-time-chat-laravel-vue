@@ -3,7 +3,7 @@
 @section('content')
 
 <div id="app">
-    <whats-good />
+<whats-good />
 </div>
 
 @endsection
