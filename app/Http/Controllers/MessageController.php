@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Auth;
 class MessageController extends Controller
 {
     //
-    public function store($user) {
+    public function store($discussion) {
         Request()->validate([
             'content' => 'required'
         ]);
         Message::create([
             "sender"=> Auth::id(),
-            "recepient"=> $user,
+            "discussion_id"=> $discussion,
             "content"=> Request("sender")
         ]);
         

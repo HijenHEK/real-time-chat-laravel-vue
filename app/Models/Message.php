@@ -10,10 +10,7 @@ class Message extends Model
     use HasFactory;
     protected $guarded = [];
     public function sender() {
-        return $this->belongsTo(User::class , 'sender');
-    }
-    public function recepient() {
-        return $this->belongsTo(User::class , 'recepient');
+        return $this->belongsTo(User::class);
     }
     public function discussion() {
         return $this->belongsTo(Discussion::class);

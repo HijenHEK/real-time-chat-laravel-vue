@@ -50,11 +50,10 @@ class User extends Authenticatable
 
 
     public function sentMessages(){
-        return $this->hasMany(Message::class , 'sender');
+        return $this->hasMany(Message::class );
     }
-    public function recievedMessages(){
-        return $this->hasMany(Message::class , 'recepient');
-    }
+    
+    
     public function discussions(){
         return $this->belongsToMany(Discussion::class);
     }
