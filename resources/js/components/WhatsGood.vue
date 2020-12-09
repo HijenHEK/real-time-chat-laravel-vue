@@ -40,7 +40,13 @@ import ChatBox from './ChatBox.vue'
             }
         },
         mounted() {
-            this.getContactList()
+            Echo.channel('update')
+                .listen('Update', e => {
+                        this.getContactList()
+                        this.getDiscussion(this.discussion_id)
+                });
+            axios.get('/discussions')
+                    .then((response) => {this.discussions = response.data})
         }
     }
 </script>

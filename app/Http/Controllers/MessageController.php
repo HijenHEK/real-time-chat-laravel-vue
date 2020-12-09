@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Update;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class MessageController extends Controller
             "discussion_id"=> $id,
             "content"=> Request("content")
         ]);
-        
+        event(new Update());
+
     }
 }

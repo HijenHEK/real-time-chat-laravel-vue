@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Update;
 use App\Models\Discussion;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -44,7 +45,7 @@ class DiscussionController extends Controller
         }
         $d = Auth::user()->discussions()->create();
         $d->users()->attach($user) ;
-
+        event(new Update());
         return response('success' , 200);
 
 
