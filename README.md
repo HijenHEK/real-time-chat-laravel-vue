@@ -1,2 +1,2 @@
-#WhatsGood
-##Real time chat app with laravel and vueks
+# WhatsGood
+## Real time chat app with Laravel and Vuejs
