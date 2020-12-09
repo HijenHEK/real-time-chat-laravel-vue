@@ -10,14 +10,21 @@ use Illuminate\Support\Facades\Auth;
 class MessageController extends Controller
 {
     //
-    public function store($discussion) {
+
+
+    public function __construct()
+    {
+        return $this->middleware('auth');
+    }
+
+    public function store($id) {
         Request()->validate([
             'content' => 'required'
         ]);
         Message::create([
-            "sender"=> Auth::id(),
-            "discussion_id"=> $discussion,
-            "content"=> Request("sender")
+            "user_id"=> Auth::id(),
+            "discussion_id"=> $id,
+            "content"=> Request("content")
         ]);
         
     }

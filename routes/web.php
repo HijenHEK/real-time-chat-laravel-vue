@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/discussions', [DiscussionController::class, 'index'])->name('discussions');
+Route::get('/discussions/{discussion}', [DiscussionController::class, 'show'])->name('discussions');
 
-
+Route::post('/messages/{id}', [MessageController::class, 'store'])->name('messages.store');
 

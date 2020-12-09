@@ -22,4 +22,8 @@ class DiscussionController extends Controller
         }
         ])->latest()->get();
     }
+
+    public function show(Discussion $discussion) {
+        return $discussion->messages()->with('user')->latest()->get();
+    }
 }

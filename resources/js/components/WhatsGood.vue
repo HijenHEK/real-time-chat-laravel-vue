@@ -1,11 +1,11 @@
 <template>
     <div class="container whatsgood">
-        <div class="row justify-content-between">
+        <div class="row justify-content-between h-100">
             <div class="col-md-4">
-                <contact-list :auth="auth" :discussions="discussions"></contact-list>
+                <contact-list v-on:discussion-selected="getDiscussion" :auth="auth" :discussions="discussions"></contact-list>
             </div>
             <div class="col-md-8">
-                <chat-box></chat-box>
+                <chat-box :id="discussion_id" :auth="auth" :discussion="discussion"></chat-box>
                 
             </div>            
         </div>
@@ -23,13 +23,20 @@ import ChatBox from './ChatBox.vue'
         },
         data(){
             return {
-                discussions : {}
+                discussions : {},
+                discussion : null ,
+                discussion_id : null
             }
         },
         methods : {
             getContactList(){
                 axios.get('/discussions')
                     .then((response) => {this.discussions = response.data})
+            },
+            
+            getDiscussion(discussion) {
+                this.discussion_id = discussion
+                axios.get('/discussions/' + discussion).then((response) => {this.discussion = response.data})
             }
         },
         mounted() {
@@ -46,5 +53,7 @@ import ChatBox from './ChatBox.vue'
     }
     .col-md-4 , .col-md-8 {
        padding : 0 ; 
+      height: 100%;
+
     }
 </style>
