@@ -60,6 +60,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Discussion::class);
     }
 
+    public function hasDiscussion(User $user){
+        return $this->discussions->map->users->collapse()->contains('id',$user->id);
+    }
 
     public function friends() {
         $one = DB::table('friends')->join('users',  'friends.user_id', '=', 'users.id')

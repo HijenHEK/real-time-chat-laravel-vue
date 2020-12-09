@@ -26,4 +26,27 @@ class DiscussionController extends Controller
     public function show(Discussion $discussion) {
         return $discussion->messages()->with('user')->latest()->get();
     }
+
+    public function store(Request $r) {
+
+        
+        $this->validate($r, [
+            'uname' => 'required|exists:users,uname'
+        ]);
+            
+        $user = User::where('uname' , $r->uname)->first();
+        if(Auth::user()->is($user)) {
+            return response('you cannot dm yourself' , '422');
+ 
+        }
+        if(Auth::user()->hasDiscussion($user)) {
+            return response('discussions exists already' , '422');
+        }
+        $d = Auth::user()->discussions()->create();
+        $d->users()->attach($user) ;
+
+        return response('success' , 200);
+
+
+    }
 }

@@ -2,7 +2,7 @@
     <div class="container whatsgood">
         <div class="row justify-content-between h-100">
             <div class="col-md-4">
-                <contact-list v-on:discussion-selected="getDiscussion" :auth="auth" :discussions="discussions"></contact-list>
+                <contact-list v-on:discussion-selected="getDiscussion" :auth="auth" :selected="discussion_id" :discussions="discussions"></contact-list>
             </div>
             <div class="col-md-8">
                 <chat-box :id="discussion_id" :auth="auth" :discussion="discussion"></chat-box>
@@ -47,7 +47,7 @@ import ChatBox from './ChatBox.vue'
 
 <style scoped>
     .whatsgood {
-        box-shadow: 0 0 2px 1px rgb(22, 83, 214);
+        box-shadow : 0px 0 2px 1px rgb(182, 220, 255);
         height: 100%;
 
     }

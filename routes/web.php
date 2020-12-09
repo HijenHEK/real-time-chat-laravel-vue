@@ -26,7 +26,8 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/discussions', [DiscussionController::class, 'index'])->name('discussions');
-Route::get('/discussions/{discussion}', [DiscussionController::class, 'show'])->name('discussions');
+Route::post('/discussions', [DiscussionController::class, 'store'])->name('discussions.store');
+Route::get('/discussions/{discussion}', [DiscussionController::class, 'show'])->name('discussions.show');
 
 Route::post('/messages/{id}', [MessageController::class, 'store'])->name('messages.store');
 

@@ -8,7 +8,6 @@
     </div>
 
 
-    
   </div>
   
   
@@ -40,7 +39,7 @@ export default {
   methods : {
     sendMsg(){
 
-      axios.post('/messages/'+this.id , this.form)
+      this.form.post('/messages/'+this.id)
         
 
     }
@@ -55,28 +54,35 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: space-between;
-    box-shadow : -1px 0 2px 1px rgb(0, 132, 255);
-
+    box-shadow : -1px 0 2px 1px rgb(182, 220, 255);
+    background-color: rgb(232, 241, 252) ;
   }
   .discussion {
     display: flex;
     flex-direction: column-reverse;
     width: 100%;
     height: 100%;
+    overflow-y: scroll;
+    
+
   }
   .msg {
     padding: 0.5rem 1rem;
-    border-radius: 10px;
+    border-radius:  5px;
     background-color: rgb(0, 132, 255) ;
     color: white;
     margin: 0.5rem;
     min-width: 6rem;
-    
+    box-shadow: 0 0 1px 1px rgb(0, 162, 255) ;
+  }
+  .msg:last-child::before{
+    content: '';
+    padding: 5rem;
   }
   .send {
     align-self: flex-end;
     text-align: right;
-        background-color: rgb(0, 162, 255) ;
+    background-color: rgb(0, 162, 255) ;
 
   }
   .receive {
