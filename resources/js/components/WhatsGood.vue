@@ -2,7 +2,7 @@
     <div class="container whatsgood">
         <div class="row justify-content-between">
             <div class="col-md-4">
-                <contact-list :users="users"></contact-list>
+                <contact-list :auth="auth" :discussions="discussions"></contact-list>
             </div>
             <div class="col-md-8">
                 <chat-box></chat-box>
@@ -16,19 +16,20 @@
 import ContactList from './ContactList.vue'
 import ChatBox from './ChatBox.vue'
     export default {
+        props : ['auth'],
         components : {
             ContactList,
             ChatBox
         },
         data(){
             return {
-                users : {}
+                discussions : {}
             }
         },
         methods : {
             getContactList(){
-                axios.get('/contacts')
-                    .then(response => this.users = response.data)
+                axios.get('/discussions')
+                    .then((response) => {this.discussions = response.data})
             }
         },
         mounted() {

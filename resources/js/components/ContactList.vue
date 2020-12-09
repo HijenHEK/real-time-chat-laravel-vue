@@ -1,8 +1,9 @@
 <template>
   <div>
     
-    <div class="discussion" v-for="user in users" :key="user.index" >
-              {{user.name}}
+    <div class="discussion"  v-for="discussion in discussions" :key="discussion.index" >
+              <h5>{{discussion.users[0].name}}</h5>
+              <div >{{ discussion.messages[0] ? discussion.messages[0].content : ''}}</div>
     </div>
     
   </div>
@@ -10,8 +11,11 @@
 
 <script>
 export default {
-  props : ['users']
-
+  props : ['discussions', 'auth'],
+  
+  mounted() {
+    console.log(this.discussions)
+  }
 }
 </script>
 

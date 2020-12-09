@@ -1937,8 +1937,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['users']
+  props: ['discussions', 'auth'],
+  mounted: function mounted() {
+    console.log(this.discussions);
+  }
 });
 
 /***/ }),
@@ -1971,21 +1975,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['auth'],
   components: {
     ContactList: _ContactList_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     ChatBox: _ChatBox_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
-      users: {}
+      discussions: {}
     };
   },
   methods: {
     getContactList: function getContactList() {
       var _this = this;
 
-      axios.get('/contacts').then(function (response) {
-        return _this.users = response.data;
+      axios.get('/discussions').then(function (response) {
+        _this.discussions = response.data;
       });
     }
   },
@@ -38306,9 +38311,15 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.users, function(user) {
-      return _c("div", { key: user.index, staticClass: "discussion" }, [
-        _vm._v("\n            " + _vm._s(user.name) + "\n  ")
+    _vm._l(_vm.discussions, function(discussion) {
+      return _c("div", { key: discussion.index, staticClass: "discussion" }, [
+        _c("h5", [_vm._v(_vm._s(discussion.users[0].name))]),
+        _vm._v(" "),
+        _c("div", [
+          _vm._v(
+            _vm._s(discussion.messages[0] ? discussion.messages[0].content : "")
+          )
+        ])
       ])
     }),
     0
@@ -38341,7 +38352,11 @@ var render = function() {
       _c(
         "div",
         { staticClass: "col-md-4" },
-        [_c("contact-list", { attrs: { users: _vm.users } })],
+        [
+          _c("contact-list", {
+            attrs: { auth: _vm.auth, discussions: _vm.discussions }
+          })
+        ],
         1
       ),
       _vm._v(" "),
