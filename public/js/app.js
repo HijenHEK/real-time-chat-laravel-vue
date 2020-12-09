@@ -1990,6 +1990,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['discussions', 'auth', 'selected'],
@@ -6538,7 +6540,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.discussion[data-v-0ee8d67a] {\n  padding: 0.5rem 1rem;\n  font: 1.1rem;\n}\n.discussion[data-v-0ee8d67a]:hover {\n  background-color: rgb(188, 219, 255);\n  color: black;\n  cursor: pointer;\n}\n.discussion.selected[data-v-0ee8d67a] {\n  background-color: rgba(44, 146, 255, 0.836);\n  color: white;\n}\n.form[data-v-0ee8d67a] {\n  background-color: rgb(188, 219, 255) ;\n  padding: 0.5rem 1rem;\n  display: flex;\n  justify-content: space-between;\n  align-items:  flex-start;\n  box-shadow: 0 1px 2px 1px rgb(188, 219, 255);\n}\ninput[data-v-0ee8d67a] {\n  border: none;\n  outline: none;\n  border-radius: 5px;\n  resize: none;\n  flex: 1;\n}\nbutton[data-v-0ee8d67a] {\n    margin-left: 10px ;\n}\n", ""]);
+exports.push([module.i, "\n.discussion[data-v-0ee8d67a] {\n  padding: 0.5rem 1rem;\n  font: 1.1rem;\n}\n.discussion[data-v-0ee8d67a]:hover {\n  background-color: rgb(171, 208, 250);\n  color: black;\n  cursor: pointer;\n}\n.discussion.selected[data-v-0ee8d67a] {\n  background-color: rgba(44, 146, 255, 0.836);\n  color: white;\n}\n.form[data-v-0ee8d67a] {\n  background-color: rgb(188, 219, 255) ;\n  padding: 0.5rem 1rem;\n  display: flex;\n  justify-content: space-between;\n  align-items:  flex-start;\n  box-shadow: 0 1px 2px 1px rgb(188, 219, 255);\n}\ninput[data-v-0ee8d67a] {\n  border: none;\n  outline: none;\n  border-radius: 5px;\n  resize: none;\n  flex: 1;\n}\nbutton[data-v-0ee8d67a] {\n    margin-left: 10px ;\n}\n.username[data-v-0ee8d67a] {\n      padding: 0.5rem 0;\n      font-size: 1.1rem;\n      font-weight: 500;\n}\n.meta[data-v-0ee8d67a] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 0.2rem;\n}\n", ""]);
 
 // exports
 
@@ -39599,16 +39601,28 @@ var render = function() {
             }
           },
           [
-            _c("h5", [_vm._v(_vm._s(discussion.users[0].name))]),
+            _c("div", { staticClass: "username" }, [
+              _vm._v(_vm._s(discussion.users[0].name))
+            ]),
             _vm._v(" "),
-            _c("h5", [_vm._v(_vm._s(discussion.id))]),
-            _vm._v(" "),
-            _c("div", [
-              _vm._v(
-                _vm._s(
-                  discussion.messages[0] ? discussion.messages[0].content : ""
+            _c("div", { staticClass: "meta" }, [
+              _c("div", { staticClass: "lastMessage" }, [
+                _vm._v(
+                  _vm._s(
+                    discussion.messages[0] ? discussion.messages[0].content : ""
+                  )
                 )
-              )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "lastMessage" }, [
+                _vm._v(
+                  _vm._s(
+                    discussion.messages[0]
+                      ? discussion.messages[0].created_at
+                      : ""
+                  )
+                )
+              ])
             ])
           ]
         )

@@ -12,9 +12,11 @@
     </div>
 
     <div class="discussion"  v-for="discussion in discussions" :class="{'selected' : discussion.id == selected}"  :key="discussion.index"  @click="selectDiscussion(discussion.id)" >
-              <h5>{{discussion.users[0].name}}</h5>
-              <h5>{{discussion.id}}</h5>
-              <div >{{ discussion.messages[0] ? discussion.messages[0].content : ''}}</div>
+              <div class="username">{{discussion.users[0].name}}</div>
+              <div class="meta">
+              <div class="lastMessage">{{ discussion.messages[0] ? discussion.messages[0].content : ''}}</div>
+              <div class="lastMessage">{{ discussion.messages[0] ? discussion.messages[0].created_at : ''}}</div>
+              </div>
     </div>
     
     
@@ -56,7 +58,7 @@ export default {
     font: 1.1rem;
   }
   .discussion:hover {
-    background-color: rgb(188, 219, 255);
+    background-color: rgb(171, 208, 250);
     color: black;
     cursor: pointer;
   }
@@ -83,5 +85,16 @@ export default {
   }
   button {
       margin-left: 10px ;
+  }
+  .username {
+        padding: 0.5rem 0;
+        font-size: 1.1rem;
+        font-weight: 500;
+
+  }
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0.2rem;
   }
 </style>
