@@ -41,6 +41,8 @@ import ChatBox from './ChatBox.vue'
 <style scoped>
     .whatsgood {
         box-shadow: 0 0 2px 1px rgb(22, 83, 214);
+        height: 100%;
+
     }
     .col-md-4 , .col-md-8 {
        padding : 0 ; 

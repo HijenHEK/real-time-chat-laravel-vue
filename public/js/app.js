@@ -6460,7 +6460,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.whatsgood[data-v-65d4f7b1] {\n    box-shadow: 0 0 2px 1px rgb(22, 83, 214);\n}\n.col-md-4[data-v-65d4f7b1], .col-md-8[data-v-65d4f7b1] {\n   padding : 0 ;\n}\n", ""]);
+exports.push([module.i, "\n.whatsgood[data-v-65d4f7b1] {\n    box-shadow: 0 0 2px 1px rgb(22, 83, 214);\n    height: 100%;\n}\n.col-md-4[data-v-65d4f7b1], .col-md-8[data-v-65d4f7b1] {\n   padding : 0 ;\n}\n", ""]);
 
 // exports
 
