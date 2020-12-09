@@ -46,4 +46,13 @@ class User extends Authenticatable
     {
         return 'uname' ;
     }
+
+
+
+    public function sentMessages(){
+        return $this->hasMany(Message::class , 'sender');
+    }
+    public function recievedMessages(){
+        return $this->hasMany(Message::class , 'recepient');
+    }
 }
