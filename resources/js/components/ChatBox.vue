@@ -39,7 +39,9 @@ export default {
   methods : {
     sendMsg(){
 
-      this.form.post('/messages/'+this.id)
+      this.form.post('/messages/'+this.id).then((response) => {
+        this.form.reset()
+      })
         
 
     }

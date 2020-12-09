@@ -14,8 +14,8 @@
     <div class="discussion"  v-for="discussion in discussions" :class="{'selected' : discussion.id == selected}"  :key="discussion.index"  @click="selectDiscussion(discussion.id)" >
               <div class="username">{{discussion.users[0].name}}</div>
               <div class="meta">
-              <div class="lastMessage">{{ discussion.messages[0] ? discussion.messages[0].content : ''}}</div>
-              <div class="lastMessage">{{ discussion.messages[0] ? discussion.messages[0].created_at : ''}}</div>
+              <div class="lastMessage" v-if="discussion.messages[0]">{{ discussion.messages[0].content}}</div>
+              <div class="lastMessage" v-if="discussion.messages[0]">{{discussion.messages[0].created_at | moment("from", "now")}}</div>
               </div>
     </div>
     
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+// import moment from 'moment'
 import Form from 'vform'
 export default {
   props : ['discussions', 'auth' , 'selected'],
@@ -35,13 +36,26 @@ export default {
       })
     }
   },
+
+  // filters: {
+  //   moment: function (date) {
+  //     return moment(date).fromNow();
+  //   }
+  // },
+
   methods : {
+    moment() {
+      return moment("from" , "now");
+    },
     selectDiscussion(el){
       
       this.$emit('discussion-selected' , el)
     },
     addContact(){
-      this.form.post('/discussions')
+      this.form.post('/discussions').then((response) => {
+        this.form.reset()
+      })
+        
         
     }
   },
