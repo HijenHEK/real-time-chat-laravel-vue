@@ -1,17 +1,20 @@
 <template>
-<div class="chat-box">
+<div class="chat-box" v-if="discussion">
 
 
   <div class="discussion">
     <div v-for="message in discussion" :key="message.id" class="msg"  :class="message.user.id === auth ? 'send' : 'receive' " >
-          {{message.content}}
+          <span class="content">
+            {{message.content}}
+          </span>
+          <span class="time">
+              {{message.created_at | moment("calendar") | removeToday()}}
+          </span>
     </div>
-
-
   </div>
   
   
-  <form class="form" @submit.prevent="sendMsg" @keydown="form.onKeydown($event)">
+  <form  class="form" @submit.prevent="sendMsg" @keydown="form.onKeydown($event)">
       <textarea v-model="form.content" type="text" name="content"
           class="form-control" :class="{ 'is-invalid': form.errors.has('content') }"></textarea>
 
@@ -36,6 +39,14 @@ export default {
 
     }
   },
+  filters: {
+    removeToday(S) {
+      if(S.includes('Today at ')){
+        return S.slice(9,-2)
+      }
+      return S
+    }
+  },
   methods : {
     sendMsg(){
 
@@ -53,10 +64,11 @@ export default {
 
   .chat-box {
     height: 100%;
+    width: 100%;
     display: flex;
+    justify-content: center;
     flex-direction: column;
     align-items: space-between;
-    box-shadow : -1px 0 2px 1px rgb(182, 220, 255);
     background-color: rgb(232, 241, 252) ;
   }
   .discussion {
@@ -65,31 +77,73 @@ export default {
     width: 100%;
     height: 100%;
     overflow-y: scroll;
-    
+    overflow-x:hidden; 
 
   }
-  .msg {
-    padding: 0.5rem 1rem;
-    border-radius:  5px;
-    background-color: rgb(0, 132, 255) ;
-    color: white;
-    margin: 0.5rem;
-    min-width: 6rem;
-    box-shadow: 0 0 1px 1px rgb(0, 162, 255) ;
+  /*.discussion::-webkit-scrollbar-track-piece {
+      color: rgb(0, 0, 0);
+      border-radius: 5px;
   }
-  .msg:last-child::before{
+   .discussion::-webkit-scrollbar-corner {
+      display: none;
+  }
+
+  .discussion::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px rgb(0, 162, 255); 
+
+      max-width: 7px;
+      color: rgb(0, 132, 255);
+      background-color: rgb(232, 241, 252);
+
+  }*/
+  .msg {
+
+    margin: 0.5rem;
+
+    max-width: 80%;
+    display: flex;
+    align-items: flex-end;
+  }
+  .msg:last-child .content::before{
     content: '';
     padding: 5rem;
+  }
+  .time {
+    margin: 0.5rem;
+    font-size: 0.7rem;
+    opacity: 0.1;
+  }
+  
+  .msg:hover .time{
+    opacity: 0.8;
+    transition:all 0.5s ease-in-out;
+  }
+  .msg .content {
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius:  5px;
+    min-width: 4rem;
+    word-break: break-all ;
+    box-shadow: 0 0 1px 1px rgb(0, 162, 255) ;
+  }
+  .send .content {
+    text-align: right;
+    background-color: rgb(0, 132, 255) ;
+
+  }
+  .receive .content {
+    text-align: right;
+        background-color: rgb(0, 162, 255) ;
+
   }
   .send {
     align-self: flex-end;
     text-align: right;
-    background-color: rgb(0, 162, 255) ;
-
+    flex-direction: row-reverse;
   }
   .receive {
     align-self: flex-start;
-    
+
 
   }
 

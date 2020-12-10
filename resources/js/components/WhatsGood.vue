@@ -6,7 +6,6 @@
             </div>
             <div class="col-md-8">
                 <chat-box :id="discussion_id" :auth="auth" :discussion="discussion"></chat-box>
-                
             </div>            
         </div>
     </div>
@@ -53,9 +52,9 @@ import ChatBox from './ChatBox.vue'
 
 <style scoped>
     .whatsgood {
-        box-shadow : 0px 0 2px 1px rgb(182, 220, 255);
+        box-shadow : 0px 0 2px 2px rgb(182, 220, 255);
         height: 100%;
-
+            background-color: rgb(239, 243, 248) ;
     }
     .col-md-4 , .col-md-8 {
        padding : 0 ; 

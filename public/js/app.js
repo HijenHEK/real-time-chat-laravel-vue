@@ -1936,6 +1936,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['discussion', 'id', 'auth'],
@@ -1945,6 +1948,15 @@ __webpack_require__.r(__webpack_exports__);
         content: ''
       })
     };
+  },
+  filters: {
+    removeToday: function removeToday(S) {
+      if (S.includes('Today at ')) {
+        return S.slice(9, -2);
+      }
+
+      return S;
+    }
   },
   methods: {
     sendMsg: function sendMsg() {
@@ -2037,6 +2049,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
+  filters: {
+    max30: function max30(s) {
+      if (s.length > 30) {
+        return s.slice(0, 31) + ' ...';
+      } else {
+        return s;
+      }
+    }
+  },
   mounted: function mounted() {
     console.log(this.discussions);
   }
@@ -2055,7 +2076,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ContactList_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ContactList.vue */ "./resources/js/components/ContactList.vue");
 /* harmony import */ var _ChatBox_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ChatBox.vue */ "./resources/js/components/ChatBox.vue");
-//
 //
 //
 //
@@ -6557,7 +6577,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.chat-box[data-v-5142db38] {\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  align-items: space-between;\n  box-shadow : -1px 0 2px 1px rgb(182, 220, 255);\n  background-color: rgb(232, 241, 252) ;\n}\n.discussion[data-v-5142db38] {\n  display: flex;\n  flex-direction: column-reverse;\n  width: 100%;\n  height: 100%;\n  overflow-y: scroll;\n}\n.msg[data-v-5142db38] {\n  padding: 0.5rem 1rem;\n  border-radius:  5px;\n  background-color: rgb(0, 132, 255) ;\n  color: white;\n  margin: 0.5rem;\n  min-width: 6rem;\n  box-shadow: 0 0 1px 1px rgb(0, 162, 255) ;\n}\n.msg[data-v-5142db38]:last-child::before{\n  content: '';\n  padding: 5rem;\n}\n.send[data-v-5142db38] {\n  align-self: flex-end;\n  text-align: right;\n  background-color: rgb(0, 162, 255) ;\n}\n.receive[data-v-5142db38] {\n  align-self: flex-start;\n}\n.form[data-v-5142db38] {\n  margin-top: 10px ;\n  background-color: rgb(188, 219, 255) ;\n  padding: 0.5rem 1rem;\n  display: flex;\n  justify-content: space-between;\n  align-items:  flex-end;\n  box-shadow: 0 -1px 2px 1px rgb(188, 219, 255);\n}\ntextarea[data-v-5142db38] {\n  border: none;\n  outline: none;\n  border-radius: 5px;\n  resize: none;\n  flex: 1;\n}\nbutton[data-v-5142db38] {\n    margin-left: 10px ;\n    margin-bottom: 5px ;\n}\n", ""]);
+exports.push([module.i, "\n.chat-box[data-v-5142db38] {\n  height: 100%;\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: space-between;\n  background-color: rgb(232, 241, 252) ;\n}\n.discussion[data-v-5142db38] {\n  display: flex;\n  flex-direction: column-reverse;\n  width: 100%;\n  height: 100%;\n  overflow-y: scroll;\n  overflow-x:hidden;\n}\n/*.discussion::-webkit-scrollbar-track-piece {\n    color: rgb(0, 0, 0);\n    border-radius: 5px;\n}\n .discussion::-webkit-scrollbar-corner {\n    display: none;\n}\n\n.discussion::-webkit-scrollbar-track {\n    box-shadow: inset 0 0 5px rgb(0, 162, 255); \n\n    max-width: 7px;\n    color: rgb(0, 132, 255);\n    background-color: rgb(232, 241, 252);\n\n}*/\n.msg[data-v-5142db38] {\n\n  margin: 0.5rem;\n\n  max-width: 80%;\n  display: flex;\n  align-items: flex-end;\n}\n.msg:last-child .content[data-v-5142db38]::before{\n  content: '';\n  padding: 5rem;\n}\n.time[data-v-5142db38] {\n  margin: 0.5rem;\n  font-size: 0.7rem;\n  opacity: 0.1;\n}\n.msg:hover .time[data-v-5142db38]{\n  opacity: 0.8;\n  transition:all 0.5s ease-in-out;\n}\n.msg .content[data-v-5142db38] {\n  color: white;\n  padding: 0.5rem 1rem;\n  border-radius:  5px;\n  min-width: 4rem;\n  word-break: break-all ;\n  box-shadow: 0 0 1px 1px rgb(0, 162, 255) ;\n}\n.send .content[data-v-5142db38] {\n  text-align: right;\n  background-color: rgb(0, 132, 255) ;\n}\n.receive .content[data-v-5142db38] {\n  text-align: right;\n      background-color: rgb(0, 162, 255) ;\n}\n.send[data-v-5142db38] {\n  align-self: flex-end;\n  text-align: right;\n  flex-direction: row-reverse;\n}\n.receive[data-v-5142db38] {\n  align-self: flex-start;\n}\n.form[data-v-5142db38] {\n  margin-top: 10px ;\n  background-color: rgb(188, 219, 255) ;\n  padding: 0.5rem 1rem;\n  display: flex;\n  justify-content: space-between;\n  align-items:  flex-end;\n  box-shadow: 0 -1px 2px 1px rgb(188, 219, 255);\n}\ntextarea[data-v-5142db38] {\n  border: none;\n  outline: none;\n  border-radius: 5px;\n  resize: none;\n  flex: 1;\n}\nbutton[data-v-5142db38] {\n    margin-left: 10px ;\n    margin-bottom: 5px ;\n}\n", ""]);
 
 // exports
 
@@ -6576,7 +6596,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.discussion[data-v-0ee8d67a] {\n  padding: 0.5rem 1rem;\n  font: 1.1rem;\n}\n.discussion[data-v-0ee8d67a]:hover {\n  background-color: rgb(171, 208, 250);\n  color: black;\n  cursor: pointer;\n}\n.discussion.selected[data-v-0ee8d67a] {\n  background-color: rgba(44, 146, 255, 0.836);\n  color: white;\n}\n.form[data-v-0ee8d67a] {\n  background-color: rgb(188, 219, 255) ;\n  padding: 0.5rem 1rem;\n  display: flex;\n  justify-content: space-between;\n  align-items:  flex-start;\n  box-shadow: 0 1px 2px 1px rgb(188, 219, 255);\n}\ninput[data-v-0ee8d67a] {\n  border: none;\n  outline: none;\n  border-radius: 5px;\n  resize: none;\n  flex: 1;\n}\nbutton[data-v-0ee8d67a] {\n    margin-left: 10px ;\n}\n.username[data-v-0ee8d67a] {\n      padding: 0.5rem 0;\n      font-size: 1.1rem;\n      font-weight: 500;\n}\n.meta[data-v-0ee8d67a] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 0.2rem;\n}\n", ""]);
+exports.push([module.i, "\n.contactList[data-v-0ee8d67a]{\n      box-shadow : 1px 0 2px 1px rgb(182, 220, 255);\n      height: 100%;\n}\n.discussion[data-v-0ee8d67a] {\n    padding: 0.5rem 1rem;\n    font: 1.1rem;\n    box-shadow: 0 1px 1px 1px rgb(188, 219, 255);\n}\n.discussion[data-v-0ee8d67a]:hover {\n    background-color: rgb(171, 208, 250);\n    color: black;\n    cursor: pointer;\n}\n.discussion.selected[data-v-0ee8d67a] {\n    background-color: rgba(44, 146, 255, 0.836);\n    color: white;\n}\n.form[data-v-0ee8d67a] {\n    background-color: rgb(188, 219, 255) ;\n    padding: 0.5rem 1rem;\n    display: flex;\n    justify-content: space-between;\n    align-items:  flex-start;\n    box-shadow: 0 1px 2px 1px rgb(188, 219, 255);\n}\ninput[data-v-0ee8d67a] {\n    border: none;\n    outline: none;\n    border-radius: 5px;\n    resize: none;\n    flex: 1;\n}\nbutton[data-v-0ee8d67a] {\n      margin-left: 10px ;\n}\n.username[data-v-0ee8d67a] {\n        padding: 0.5rem 0;\n        font-size: 1.1rem;\n        font-weight: 500;\n}\n.meta[data-v-0ee8d67a] {\n    display: flex;\n    justify-content: space-between;\n    padding-bottom: 0.2rem;\n}\n.lastMessage[data-v-0ee8d67a] {\n    flex: 70%;\n}\n.createdAt[data-v-0ee8d67a] {\n    flex: 30%;\n}\n", ""]);
 
 // exports
 
@@ -6595,7 +6615,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.whatsgood[data-v-65d4f7b1] {\n    box-shadow : 0px 0 2px 1px rgb(182, 220, 255);\n    height: 100%;\n}\n.col-md-4[data-v-65d4f7b1], .col-md-8[data-v-65d4f7b1] {\n   padding : 0 ; \n  height: 100%;\n}\n", ""]);
+exports.push([module.i, "\n.whatsgood[data-v-65d4f7b1] {\n    box-shadow : 0px 0 2px 2px rgb(182, 220, 255);\n    height: 100%;\n        background-color: rgb(239, 243, 248) ;\n}\n.col-md-4[data-v-65d4f7b1], .col-md-8[data-v-65d4f7b1] {\n   padding : 0 ; \n  height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -45574,73 +45594,93 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "chat-box" }, [
-    _c(
-      "div",
-      { staticClass: "discussion" },
-      _vm._l(_vm.discussion, function(message) {
-        return _c(
+  return _vm.discussion
+    ? _c("div", { staticClass: "chat-box" }, [
+        _c(
           "div",
-          {
-            key: message.id,
-            staticClass: "msg",
-            class: message.user.id === _vm.auth ? "send" : "receive"
-          },
-          [_vm._v("\n          " + _vm._s(message.content) + "\n    ")]
-        )
-      }),
-      0
-    ),
-    _vm._v(" "),
-    _c(
-      "form",
-      {
-        staticClass: "form",
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.sendMsg($event)
-          },
-          keydown: function($event) {
-            return _vm.form.onKeydown($event)
-          }
-        }
-      },
-      [
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.form.content,
-              expression: "form.content"
-            }
-          ],
-          staticClass: "form-control",
-          class: { "is-invalid": _vm.form.errors.has("content") },
-          attrs: { type: "text", name: "content" },
-          domProps: { value: _vm.form.content },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.form, "content", $event.target.value)
-            }
-          }
-        }),
+          { staticClass: "discussion" },
+          _vm._l(_vm.discussion, function(message) {
+            return _c(
+              "div",
+              {
+                key: message.id,
+                staticClass: "msg",
+                class: message.user.id === _vm.auth ? "send" : "receive"
+              },
+              [
+                _c("span", { staticClass: "content" }, [
+                  _vm._v(
+                    "\n            " + _vm._s(message.content) + "\n          "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "time" }, [
+                  _vm._v(
+                    "\n              " +
+                      _vm._s(
+                        _vm._f("removeToday")(
+                          _vm._f("moment")(message.created_at, "calendar")
+                        )
+                      ) +
+                      "\n          "
+                  )
+                ])
+              ]
+            )
+          }),
+          0
+        ),
         _vm._v(" "),
         _c(
-          "button",
+          "form",
           {
-            staticClass: "btn btn-primary",
-            attrs: { disabled: _vm.form.busy, type: "submit" }
+            staticClass: "form",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.sendMsg($event)
+              },
+              keydown: function($event) {
+                return _vm.form.onKeydown($event)
+              }
+            }
           },
-          [_vm._v("Send !")]
+          [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.content,
+                  expression: "form.content"
+                }
+              ],
+              staticClass: "form-control",
+              class: { "is-invalid": _vm.form.errors.has("content") },
+              attrs: { type: "text", name: "content" },
+              domProps: { value: _vm.form.content },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "content", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { disabled: _vm.form.busy, type: "submit" }
+              },
+              [_vm._v("Send !")]
+            )
+          ]
         )
-      ]
-    )
-  ])
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -45666,6 +45706,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "contactList" },
     [
       _c("div", [
         _c(
@@ -45746,12 +45787,14 @@ var render = function() {
             _c("div", { staticClass: "meta" }, [
               discussion.messages[0]
                 ? _c("div", { staticClass: "lastMessage" }, [
-                    _vm._v(_vm._s(discussion.messages[0].content))
+                    _vm._v(
+                      _vm._s(_vm._f("max30")(discussion.messages[0].content))
+                    )
                   ])
                 : _vm._e(),
               _vm._v(" "),
               discussion.messages[0]
-                ? _c("div", { staticClass: "lastMessage" }, [
+                ? _c("div", { staticClass: "createdAt" }, [
                     _vm._v(
                       _vm._s(
                         _vm._f("moment")(

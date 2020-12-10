@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="contactList">
     
     <div>
       <form class="form" @submit.prevent="addContact" @keydown="form.onKeydown($event)">
@@ -14,8 +14,8 @@
     <div class="discussion"  v-for="discussion in discussions" :class="{'selected' : discussion.id == selected}"  :key="discussion.index"  @click="selectDiscussion(discussion.id)" >
               <div class="username">{{discussion.users[0].name}}</div>
               <div class="meta">
-              <div class="lastMessage" v-if="discussion.messages[0]">{{ discussion.messages[0].content}}</div>
-              <div class="lastMessage" v-if="discussion.messages[0]">{{discussion.messages[0].created_at | moment("from", "now")}}</div>
+              <div class="lastMessage" v-if="discussion.messages[0]">{{ discussion.messages[0].content | max30() }}</div>
+              <div class="createdAt" v-if="discussion.messages[0]">{{discussion.messages[0].created_at | moment("from", "now")}}</div>
               </div>
     </div>
     
@@ -59,6 +59,16 @@ export default {
         
     }
   },
+  filters : {
+    max30(s) {
+      if(s.length > 30) {
+        return s.slice(0 , 31) + ' ...'
+      }
+      else {
+        return s
+      }
+    }
+  },
   mounted() {
 
     console.log(this.discussions)
@@ -67,9 +77,14 @@ export default {
 </script>
 
 <style scoped>
+.contactList{
+      box-shadow : 1px 0 2px 1px rgb(182, 220, 255);
+      height: 100%;
+}
   .discussion {
     padding: 0.5rem 1rem;
     font: 1.1rem;
+    box-shadow: 0 1px 1px 1px rgb(188, 219, 255);
   }
   .discussion:hover {
     background-color: rgb(171, 208, 250);
@@ -110,5 +125,12 @@ export default {
     display: flex;
     justify-content: space-between;
     padding-bottom: 0.2rem;
+  }
+
+  .lastMessage {
+    flex: 70%;
+  }
+  .createdAt {
+    flex: 30%;
   }
 </style>

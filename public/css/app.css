@@ -10915,6 +10915,7 @@ html {
 
 body {
   height: 100%;
+  background-color: #ecf1f1;
   width: 100%;
   overflow: hidden;
 }
@@ -10925,5 +10926,11 @@ main {
 
 #app {
   height: 90%;
+}
+
+@media (max-width: 767.98px) {
+  .mx-w-100 {
+    max-width: 100% !important;
+  }
 }
 
