@@ -2008,6 +2008,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import moment from 'moment'
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2016,8 +2026,18 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: new vform__WEBPACK_IMPORTED_MODULE_0___default.a({
         uname: ''
-      })
+      }),
+      formResponse: ''
     };
+  },
+  computed: {
+    addContactClass: function addContactClass() {
+      if (this.form.errors.any()) {
+        return 'is-invalid';
+      } else if (this.form.successful) {
+        return 'is-valid';
+      }
+    }
   },
   // filters: {
   //   moment: function (date) {
@@ -2044,8 +2064,9 @@ __webpack_require__.r(__webpack_exports__);
     addContact: function addContact() {
       var _this = this;
 
-      this.form.post('/discussions').then(function (response) {
-        _this.form.reset();
+      this.form.post('/contacts') // .then(response => this.formResponse = response.payload )
+      .then(function (response) {
+        return _this.form.reset();
       });
     }
   },
@@ -6596,7 +6617,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.contactList[data-v-0ee8d67a]{\n      box-shadow : 1px 0 2px 1px rgb(182, 220, 255);\n      height: 100%;\n}\n.discussion[data-v-0ee8d67a] {\n    padding: 0.5rem 1rem;\n    font: 1.1rem;\n    box-shadow: 0 1px 1px 1px rgb(188, 219, 255);\n}\n.discussion[data-v-0ee8d67a]:hover {\n    background-color: rgb(171, 208, 250);\n    color: black;\n    cursor: pointer;\n}\n.discussion.selected[data-v-0ee8d67a] {\n    background-color: rgba(44, 146, 255, 0.836);\n    color: white;\n}\n.form[data-v-0ee8d67a] {\n    background-color: rgb(188, 219, 255) ;\n    padding: 0.5rem 1rem;\n    display: flex;\n    justify-content: space-between;\n    align-items:  flex-start;\n    box-shadow: 0 1px 2px 1px rgb(188, 219, 255);\n}\ninput[data-v-0ee8d67a] {\n    border: none;\n    outline: none;\n    border-radius: 5px;\n    resize: none;\n    flex: 1;\n}\nbutton[data-v-0ee8d67a] {\n      margin-left: 10px ;\n}\n.username[data-v-0ee8d67a] {\n        padding: 0.5rem 0;\n        font-size: 1.1rem;\n        font-weight: 500;\n}\n.meta[data-v-0ee8d67a] {\n    display: flex;\n    justify-content: space-between;\n    padding-bottom: 0.2rem;\n}\n.lastMessage[data-v-0ee8d67a] {\n    flex: 70%;\n}\n.createdAt[data-v-0ee8d67a] {\n    flex: 30%;\n}\n", ""]);
+exports.push([module.i, "\n.contactList[data-v-0ee8d67a]{\n      box-shadow : 1px 0 2px 1px rgb(182, 220, 255);\n      height: 100%;\n}\n.discussion[data-v-0ee8d67a] {\n    padding: 0.5rem 1rem;\n    font: 1.1rem;\n    box-shadow: 0 1px 1px 1px rgb(188, 219, 255);\n}\n.discussion[data-v-0ee8d67a]:hover {\n    background-color: rgb(171, 208, 250);\n    color: black;\n    cursor: pointer;\n}\n.discussion.selected[data-v-0ee8d67a] {\n    background-color: rgba(44, 146, 255, 0.836);\n    color: white;\n}\n.form[data-v-0ee8d67a] {\n    background-color: rgb(188, 219, 255) ;\n    padding: 0.5rem 1rem;\n    display: flex;\n    justify-content: space-between;\n    align-items:  flex-start;\n    box-shadow: 0 1px 2px 1px rgb(188, 219, 255);\n}\n.error[data-v-0ee8d67a] {\n    padding-top: 5px;\n    padding-left: 5px;\n    color: rgb(231, 56, 56);\n}\ninput[data-v-0ee8d67a] {\n    border: none;\n    outline: none;\n    border-radius: 5px;\n    resize: none;\n    \n    flex: 1;\n}\n.group[data-v-0ee8d67a] {\n    width: 100%;\n}\nbutton[data-v-0ee8d67a] {\n      margin-left: 10px ;\n}\n.username[data-v-0ee8d67a] {\n        padding: 0.5rem 0;\n        font-size: 1.1rem;\n        font-weight: 500;\n}\n.meta[data-v-0ee8d67a] {\n    display: flex;\n    justify-content: space-between;\n    padding-bottom: 0.2rem;\n}\n.lastMessage[data-v-0ee8d67a] {\n    flex: 70%;\n}\n.createdAt[data-v-0ee8d67a] {\n    flex: 30%;\n}\n", ""]);
 
 // exports
 
@@ -45726,33 +45747,61 @@ var render = function() {
           [
             _c("label", { attrs: { for: "username" } }),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form.uname,
-                  expression: "form.uname"
-                }
-              ],
-              staticClass: "form-control",
-              class: { "is-invalid": _vm.form.errors.has("uname") },
-              attrs: {
-                id: "username",
-                type: "text",
-                name: "uname",
-                placeholder: "enter a username"
-              },
-              domProps: { value: _vm.form.uname },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("div", { staticClass: "group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.uname,
+                    expression: "form.uname"
                   }
-                  _vm.$set(_vm.form, "uname", $event.target.value)
+                ],
+                staticClass: "form-control",
+                class: _vm.addContactClass,
+                attrs: {
+                  id: "username",
+                  type: "text",
+                  name: "uname",
+                  placeholder: "enter a username"
+                },
+                domProps: { value: _vm.form.uname },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "uname", $event.target.value)
+                  }
                 }
-              }
-            }),
+              }),
+              _vm._v(" "),
+              _vm.form.errors.has("uname")
+                ? _c("div", { staticClass: "error" }, [
+                    _vm._v(
+                      " \n             " +
+                        _vm._s(_vm.form.errors.get("uname")) +
+                        "\n        "
+                    )
+                  ])
+                : _vm.form.errors.any()
+                ? _c("div", { staticClass: "error" }, [
+                    _vm._v(
+                      " \n             " +
+                        _vm._s(_vm.formResponse) +
+                        "\n        "
+                    )
+                  ])
+                : _vm.form.successful
+                ? _c("div", { staticClass: "error" }, [
+                    _vm._v(
+                      " \n             " +
+                        _vm._s(_vm.formResponse) +
+                        "\n        "
+                    )
+                  ])
+                : _vm._e()
+            ]),
             _vm._v(" "),
             _c(
               "button",

@@ -48,6 +48,6 @@ class DiscussionController extends Controller
         event(new Update());
         return response('success' , 200);
 
-
+        
     }
 }

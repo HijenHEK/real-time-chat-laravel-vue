@@ -4,9 +4,19 @@
     <div>
       <form class="form" @submit.prevent="addContact" @keydown="form.onKeydown($event)">
       <label for="username"></label>
-        <input v-model="form.uname" id="username" type="text" name="uname" placeholder="enter a username"
-            class="form-control" :class="{ 'is-invalid': form.errors.has('uname') }">
-
+        <div class="group">
+          <input v-model="form.uname" id="username" type="text" name="uname" placeholder="enter a username"
+            class="form-control" :class="addContactClass">
+          <div v-if="form.errors.has('uname')" class="error"> 
+               {{form.errors.get('uname')}}
+          </div>
+          <div v-else-if="form.errors.any()" class="error"> 
+               {{formResponse}}
+          </div>
+          <div v-else-if="form.successful" class="error"> 
+               {{formResponse}}
+          </div>
+        </div>
         <button :disabled="form.busy" type="submit" class="btn btn-primary">add!</button>
       </form>
     </div>
@@ -32,11 +42,20 @@ export default {
   data() {
     return {
       form : new Form({
-        uname : ''
-      })
+        uname : '',
+      }),
+      formResponse : '',
     }
   },
-
+  computed : {
+    addContactClass(){
+      if(this.form.errors.any()) {
+        return 'is-invalid'
+      }else if (this.form.successful){
+        return 'is-valid'
+      }
+    }
+  },
   // filters: {
   //   moment: function (date) {
   //     return moment(date).fromNow();
@@ -52,9 +71,10 @@ export default {
       this.$emit('discussion-selected' , el)
     },
     addContact(){
-      this.form.post('/discussions').then((response) => {
-        this.form.reset()
-      })
+      this.form.post('/contacts')
+      // .then(response => this.formResponse = response.payload )
+      .then(response => this.form.reset())
+      
         
         
     }
@@ -70,7 +90,6 @@ export default {
     }
   },
   mounted() {
-
     console.log(this.discussions)
   }
 }
@@ -103,14 +122,22 @@ export default {
     align-items:  flex-start;
     box-shadow: 0 1px 2px 1px rgb(188, 219, 255);
   }
- 
+  .error {
+    padding-top: 5px;
+    padding-left: 5px;
+    color: rgb(231, 56, 56);
+  }
   input {
     border: none;
     outline: none;
     border-radius: 5px;
     resize: none;
+    
     flex: 1;
 
+  }
+  .group {
+    width: 100%;
   }
   button {
       margin-left: 10px ;
