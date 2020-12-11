@@ -2076,7 +2076,9 @@ __webpack_require__.r(__webpack_exports__);
       return moment("from", "now");
     }),
     selectDiscussion: function selectDiscussion(el) {
-      this.$emit('discussion-selected', el);
+      if (el.pivot.contact && el.users[0].pivot.contact) {
+        this.$emit('discussion-selected', el.id);
+      }
     },
     addContact: function addContact() {
       var _this = this;
@@ -45860,7 +45862,7 @@ var render = function() {
             key: discussion.index,
             on: {
               click: function($event) {
-                return _vm.selectDiscussion(discussion.id)
+                return _vm.selectDiscussion(discussion)
               }
             }
           },

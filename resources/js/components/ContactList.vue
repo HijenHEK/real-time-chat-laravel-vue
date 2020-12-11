@@ -21,7 +21,7 @@
       </form>
     </div>
 
-      <div v-for="discussion in discussions"  :key="discussion.index"  @click="selectDiscussion(discussion.id)" >
+      <div v-for="discussion in discussions"  :key="discussion.index"  @click="selectDiscussion(discussion)" >
               <div v-if="discussion.users[0].requests_in[0] || discussion.users[0].requests_out[0]" class="discussion" :class="discussionItemClass(discussion)" >
                   <div class="header">
                 <div class="username">
@@ -84,8 +84,10 @@ export default {
       return moment("from" , "now");
     },
     selectDiscussion(el){
-      
-      this.$emit('discussion-selected' , el)
+      if(el.pivot.contact && el.users[0].pivot.contact) {
+        
+        this.$emit('discussion-selected' , el.id)
+      }
     },
     addContact(){
       this.form.post('/contacts')
