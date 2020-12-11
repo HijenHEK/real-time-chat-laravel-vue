@@ -21,13 +21,30 @@
       </form>
     </div>
 
-    <div class="discussion"  v-for="discussion in discussions" :class="{'selected' : discussion.id == selected}"  :key="discussion.index"  @click="selectDiscussion(discussion.id)" >
-              <div class="username">{{discussion.users[0].name}}</div>
+      <div v-for="discussion in discussions"  :key="discussion.index"  @click="selectDiscussion(discussion.id)" >
+              <div v-if="discussion.users[0].requests_in[0] || discussion.users[0].requests_out[0]" class="discussion" :class="discussionItemClass(discussion)" >
+                  <div class="header">
+                <div class="username">
+                  {{discussion.users[0].name}}
+                </div>
+                
+      
+                  <div v-if="!discussion.users[0].pivot.contact && discussion.pivot.contact" class="status">
+                  Request pending ... 
+                  <button class="btn btn-sm btn-warning" @click="deleteRequest(discussion.users[0].uname)">cancel</button>
+                  </div>
+                  <div v-if="!discussion.pivot.contact && discussion.users[0].pivot.contact" class="status"> 
+                    <button class="btn btn-sm btn-success" @click="acceptRequest(discussion.users[0].uname,discussion.id)">accept</button>
+                    <button class="btn btn-sm btn-warning" @click="deleteRequest(discussion.users[0].uname)">delete</button>
+                  </div>
+                </div>
+              
               <div class="meta">
               <div class="lastMessage" v-if="discussion.messages[0]">{{ discussion.messages[0].content | max30() }}</div>
               <div class="createdAt" v-if="discussion.messages[0]">{{discussion.messages[0].created_at | moment("from", "now")}}</div>
               </div>
-    </div>
+              </div>
+      </div>
     
     
     
@@ -77,6 +94,28 @@ export default {
       
         
         
+    },
+    acceptRequest(uname,id){
+      axios.post('/contacts/'+uname+'/'+id)
+
+    },
+    deleteRequest(uname){
+      axios.delete('/contacts/'+uname)
+
+    },
+    discussionItemClass(discussion){
+
+      let r = '' 
+      if(discussion.id == this.selected) {
+        r+= ' selected '
+      }
+      if(!discussion.pivot.contact){
+          r+= ' requestRecieved '
+      }else if (discussion.pivot.contact && discussion.users[0].pivot.contact === 0) {
+         r+= ' requestSent '
+      }  
+      return r
+ 
     }
   },
   filters : {
@@ -96,6 +135,19 @@ export default {
 </script>
 
 <style scoped>
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.status  {
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: rgba(255, 121, 44, 0.836);
+}
+.selected .header .status {
+  color: rgb(255, 58, 58);
+}
 .contactList{
       box-shadow : 1px 0 2px 1px rgb(182, 220, 255);
       height: 100%;

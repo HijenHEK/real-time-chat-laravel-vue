@@ -32,4 +32,5 @@ Route::get('/discussions/{discussion}', [DiscussionController::class, 'show'])->
 Route::post('/messages/{id}', [MessageController::class, 'store'])->name('messages.store');
 
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
-Route::delete('/contacts', [ContactController::class, 'destroy'])->name('contacts.store');
+Route::post('/contacts/{user:uname}/{discussion}', [ContactController::class, 'store'])->name('contacts.store');
+Route::delete('/contacts/{user:uname}', [ContactController::class, 'destroy'])->name('contacts.store');

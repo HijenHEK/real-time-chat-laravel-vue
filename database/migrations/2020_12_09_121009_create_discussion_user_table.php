@@ -17,6 +17,7 @@ class CreateDiscussionUserTable extends Migration
             $table->id();
             $table->foreignId('discussion_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->boolean('contact')->default(true);
             $table->unique(['discussion_id','user_id'],'unique_discussion_user');
             $table->timestamps();
         });

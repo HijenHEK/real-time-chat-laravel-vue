@@ -57,7 +57,7 @@ class User extends Authenticatable
     
     
     public function discussions(){
-        return $this->belongsToMany(Discussion::class);
+        return $this->belongsToMany(Discussion::class)->withPivot('contact');;
     }
 
     public function hasDiscussion(User $user){
@@ -93,28 +93,26 @@ class User extends Authenticatable
         return $this->requestsIn()->whereIn('user_id' , $this->requestsOut()->pluck('contact_id'));
     }
     public function addContact(User $user) {
-        if($this->isContact($user)){
-            return response( "$user is already a contact" , 406 );
-        }
-        if($this->isRequestOut($user)){
-            return response( "request already sent !" , 406 );
-        }
-        if ($this->is($user)) {
-            return response( 'you cant add yourself' , 406 );
-
-        }
-        $this->requestsOut()->attach($user);
-        if($this->isRequestOut($user)) {
-            return response("request sent to $user->uname " , 200);
-
-        }else {
-            return response("$user->name is in your contact now !" , 200);
-
-        }
+        
+            $this->requestsOut()->attach($user);
+            if($this->isRequestOut($user)) {
+                return response("request sent to $user->uname " , 200);
+    
+            }else {
+                return response("$user->name is in your contact now !" , 200);
+    
+            }
+        
+        
+    }
+    public function removeContact(User $user) {
+        $this->requestsOut()->detach($user);
+        $this->requestsIn()->detach($user);
     }
     public function deleteContact(User $user) {
         $this->requestsOut()->detach($user);
         $this->requestsIn()->detach($user);
+        
     }
 
     public function isContact(User $user){

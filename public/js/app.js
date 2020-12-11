@@ -2018,6 +2018,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import moment from 'moment'
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2068,6 +2085,27 @@ __webpack_require__.r(__webpack_exports__);
       .then(function (response) {
         return _this.form.reset();
       });
+    },
+    acceptRequest: function acceptRequest(uname, id) {
+      axios.post('/contacts/' + uname + '/' + id);
+    },
+    deleteRequest: function deleteRequest(uname) {
+      axios["delete"]('/contacts/' + uname);
+    },
+    discussionItemClass: function discussionItemClass(discussion) {
+      var r = '';
+
+      if (discussion.id == this.selected) {
+        r += ' selected ';
+      }
+
+      if (!discussion.pivot.contact) {
+        r += ' requestRecieved ';
+      } else if (discussion.pivot.contact && discussion.users[0].pivot.contact === 0) {
+        r += ' requestSent ';
+      }
+
+      return r;
     }
   },
   filters: {
@@ -6617,7 +6655,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.contactList[data-v-0ee8d67a]{\n      box-shadow : 1px 0 2px 1px rgb(182, 220, 255);\n      height: 100%;\n}\n.discussion[data-v-0ee8d67a] {\n    padding: 0.5rem 1rem;\n    font: 1.1rem;\n    box-shadow: 0 1px 1px 1px rgb(188, 219, 255);\n}\n.discussion[data-v-0ee8d67a]:hover {\n    background-color: rgb(171, 208, 250);\n    color: black;\n    cursor: pointer;\n}\n.discussion.selected[data-v-0ee8d67a] {\n    background-color: rgba(44, 146, 255, 0.836);\n    color: white;\n}\n.form[data-v-0ee8d67a] {\n    background-color: rgb(188, 219, 255) ;\n    padding: 0.5rem 1rem;\n    display: flex;\n    justify-content: space-between;\n    align-items:  flex-start;\n    box-shadow: 0 1px 2px 1px rgb(188, 219, 255);\n}\n.error[data-v-0ee8d67a] {\n    padding-top: 5px;\n    padding-left: 5px;\n    color: rgb(231, 56, 56);\n}\ninput[data-v-0ee8d67a] {\n    border: none;\n    outline: none;\n    border-radius: 5px;\n    resize: none;\n    \n    flex: 1;\n}\n.group[data-v-0ee8d67a] {\n    width: 100%;\n}\nbutton[data-v-0ee8d67a] {\n      margin-left: 10px ;\n}\n.username[data-v-0ee8d67a] {\n        padding: 0.5rem 0;\n        font-size: 1.1rem;\n        font-weight: 500;\n}\n.meta[data-v-0ee8d67a] {\n    display: flex;\n    justify-content: space-between;\n    padding-bottom: 0.2rem;\n}\n.lastMessage[data-v-0ee8d67a] {\n    flex: 70%;\n}\n.createdAt[data-v-0ee8d67a] {\n    flex: 30%;\n}\n", ""]);
+exports.push([module.i, "\n.header[data-v-0ee8d67a] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.status[data-v-0ee8d67a]  {\n  font-weight: 500;\n  font-size: 0.8rem;\n  color: rgba(255, 121, 44, 0.836);\n}\n.selected .header .status[data-v-0ee8d67a] {\n  color: rgb(255, 58, 58);\n}\n.contactList[data-v-0ee8d67a]{\n      box-shadow : 1px 0 2px 1px rgb(182, 220, 255);\n      height: 100%;\n}\n.discussion[data-v-0ee8d67a] {\n    padding: 0.5rem 1rem;\n    font: 1.1rem;\n    box-shadow: 0 1px 1px 1px rgb(188, 219, 255);\n}\n.discussion[data-v-0ee8d67a]:hover {\n    background-color: rgb(171, 208, 250);\n    color: black;\n    cursor: pointer;\n}\n.discussion.selected[data-v-0ee8d67a] {\n    background-color: rgba(44, 146, 255, 0.836);\n    color: white;\n}\n.form[data-v-0ee8d67a] {\n    background-color: rgb(188, 219, 255) ;\n    padding: 0.5rem 1rem;\n    display: flex;\n    justify-content: space-between;\n    align-items:  flex-start;\n    box-shadow: 0 1px 2px 1px rgb(188, 219, 255);\n}\n.error[data-v-0ee8d67a] {\n    padding-top: 5px;\n    padding-left: 5px;\n    color: rgb(231, 56, 56);\n}\ninput[data-v-0ee8d67a] {\n    border: none;\n    outline: none;\n    border-radius: 5px;\n    resize: none;\n    \n    flex: 1;\n}\n.group[data-v-0ee8d67a] {\n    width: 100%;\n}\nbutton[data-v-0ee8d67a] {\n      margin-left: 10px ;\n}\n.username[data-v-0ee8d67a] {\n        padding: 0.5rem 0;\n        font-size: 1.1rem;\n        font-weight: 500;\n}\n.meta[data-v-0ee8d67a] {\n    display: flex;\n    justify-content: space-between;\n    padding-bottom: 0.2rem;\n}\n.lastMessage[data-v-0ee8d67a] {\n    flex: 70%;\n}\n.createdAt[data-v-0ee8d67a] {\n    flex: 30%;\n}\n", ""]);
 
 // exports
 
@@ -45820,8 +45858,6 @@ var render = function() {
           "div",
           {
             key: discussion.index,
-            staticClass: "discussion",
-            class: { selected: discussion.id == _vm.selected },
             on: {
               click: function($event) {
                 return _vm.selectDiscussion(discussion.id)
@@ -45829,33 +45865,112 @@ var render = function() {
             }
           },
           [
-            _c("div", { staticClass: "username" }, [
-              _vm._v(_vm._s(discussion.users[0].name))
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "meta" }, [
-              discussion.messages[0]
-                ? _c("div", { staticClass: "lastMessage" }, [
-                    _vm._v(
-                      _vm._s(_vm._f("max30")(discussion.messages[0].content))
-                    )
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              discussion.messages[0]
-                ? _c("div", { staticClass: "createdAt" }, [
-                    _vm._v(
-                      _vm._s(
-                        _vm._f("moment")(
-                          discussion.messages[0].created_at,
-                          "from",
-                          "now"
+            discussion.users[0].requests_in[0] ||
+            discussion.users[0].requests_out[0]
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "discussion",
+                    class: _vm.discussionItemClass(discussion)
+                  },
+                  [
+                    _c("div", { staticClass: "header" }, [
+                      _c("div", { staticClass: "username" }, [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(discussion.users[0].name) +
+                            "\n              "
                         )
-                      )
-                    )
-                  ])
-                : _vm._e()
-            ])
+                      ]),
+                      _vm._v(" "),
+                      !discussion.users[0].pivot.contact &&
+                      discussion.pivot.contact
+                        ? _c("div", { staticClass: "status" }, [
+                            _vm._v(
+                              "\n                Request pending ... \n                "
+                            ),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-sm btn-warning",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteRequest(
+                                      discussion.users[0].uname
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("cancel")]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      !discussion.pivot.contact &&
+                      discussion.users[0].pivot.contact
+                        ? _c("div", { staticClass: "status" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-sm btn-success",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.acceptRequest(
+                                      discussion.users[0].uname,
+                                      discussion.id
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("accept")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-sm btn-warning",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteRequest(
+                                      discussion.users[0].uname
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("delete")]
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "meta" }, [
+                      discussion.messages[0]
+                        ? _c("div", { staticClass: "lastMessage" }, [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("max30")(discussion.messages[0].content)
+                              )
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      discussion.messages[0]
+                        ? _c("div", { staticClass: "createdAt" }, [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("moment")(
+                                  discussion.messages[0].created_at,
+                                  "from",
+                                  "now"
+                                )
+                              )
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ]
+                )
+              : _vm._e()
           ]
         )
       })
