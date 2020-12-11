@@ -45,7 +45,12 @@ import ChatBox from './ChatBox.vue'
                         this.getDiscussion(this.discussion_id)
                 });
             axios.get('/discussions')
-                    .then((response) => {this.discussions = response.data})
+                    .then((response) => {
+                        
+                        this.discussions = response.data
+                        console.log(this.discussions)
+                    })
+                    
         }
     }
 </script>

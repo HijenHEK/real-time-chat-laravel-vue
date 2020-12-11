@@ -2081,8 +2081,7 @@ __webpack_require__.r(__webpack_exports__);
     addContact: function addContact() {
       var _this = this;
 
-      this.form.post('/contacts') // .then(response => this.formResponse = response.payload )
-      .then(function (response) {
+      this.form.post('/contacts').then(function (response) {
         return _this.form.reset();
       });
     },
@@ -2190,6 +2189,7 @@ __webpack_require__.r(__webpack_exports__);
     });
     axios.get('/discussions').then(function (response) {
       _this3.discussions = response.data;
+      console.log(_this3.discussions);
     });
   }
 });

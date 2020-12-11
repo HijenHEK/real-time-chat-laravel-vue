@@ -89,7 +89,6 @@ export default {
     },
     addContact(){
       this.form.post('/contacts')
-      // .then(response => this.formResponse = response.payload )
       .then(response => this.form.reset())
       
         
