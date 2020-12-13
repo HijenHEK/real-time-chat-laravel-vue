@@ -25,9 +25,5 @@ class Discussion extends Model
         if(!$u) { $u = Auth::user(); }
         return $user->discussions()->whereIn('id' , $u->discussions())->get() ;
     }
-    // public function markAsRead() {
-    //     foreach($this->messages()->get() as $message){
-    //         $message->views()->sync(Auth::user()) ;
-    //     }            
-    // }
+
 }
