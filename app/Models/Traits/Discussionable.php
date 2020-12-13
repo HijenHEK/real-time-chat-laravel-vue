@@ -2,6 +2,8 @@
 
 namespace App\Models\Traits;
 
+use App\Models\Discussion;
+use App\Models\Message;
 use App\Models\User;
 
 trait Discussionable

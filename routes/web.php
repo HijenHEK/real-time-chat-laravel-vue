@@ -4,6 +4,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Discussion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/profile', [ProfileController::class, 'update'])->name('profile');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+
+
 Route::get('/discussions', [DiscussionController::class, 'index'])->name('discussions');
 Route::post('/discussions', [DiscussionController::class, 'store'])->name('discussions.store');
 Route::get('/discussions/{discussion}', [DiscussionController::class, 'show'])->name('discussions.show');
@@ -37,4 +42,4 @@ Route::post('/contacts/{user:uname}/{discussion}', [ContactController::class, 'a
 Route::delete('/contacts/{user:uname}', [ContactController::class, 'destroy'])->name('contacts.store');
 
 
-Route::post('/discussions/{discussion}' ,[MessageController::class, 'show'])->name('messages.show');
+

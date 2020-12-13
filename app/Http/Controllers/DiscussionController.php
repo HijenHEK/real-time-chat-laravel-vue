@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\Update;
+use App\Events\ViewDiscussion;
 use App\Models\Contact;
 use App\Models\Discussion;
 use App\Models\User;
@@ -30,19 +31,24 @@ class DiscussionController extends Controller
     }
 
     public function show(Discussion $discussion) {
+
         foreach($discussion->messages()->get() as $message){
             if(!$message->views->contains(Auth::user())) {
                 $message->views()->attach(Auth::user()) ;
+                event(new Update());
 
             }
         } 
 
-        event(new Update());
+  
 
-        return $discussion->messages()->with(['user','views' => function($query){
+
+
+        return $messages =  $discussion->messages()->with(['user','views' => function($query){
             $query->where('user_id' , '<>' , Auth::id());
         }])->latest()->get();
 
+        
         // return $discussion->messages()->with(['user','views'])->latest()->get();
     }
 

@@ -23,31 +23,39 @@
 
       <div v-for="discussion in discussions"  :key="discussion.index"  @click="selectDiscussion(discussion)" >
               <div v-if="discussion.users[0].requests_in[0] || discussion.users[0].requests_out[0]" class="discussion" :class="discussionItemClass(discussion)" >
-                  <div class="header">
-                <div class="username">
-                  {{discussion.users[0].name}}
-                </div>
                 
-      
-                  <div v-if="!discussion.users[0].pivot.contact && discussion.pivot.contact" class="status">
-                  Request pending ... 
-                  <button class="btn btn-sm btn-warning" @click="deleteRequest(discussion.users[0].uname)">cancel</button>
+                    <div  class="avatar" >
+                           <img :src="discussion.users[0].avatar" alt="" srcset="">
+                    </div>
+                
+                    <div class="content">
+                            <div class="header">
+                                <div class="username">
+                                  {{discussion.users[0].name}}
+                                </div>
+                            
+                  
+                                <div v-if="!discussion.users[0].pivot.contact && discussion.pivot.contact" class="status">
+                                
+                                  Request pending ... 
+                                  <button class="btn btn-sm btn-warning" @click="deleteRequest(discussion.users[0].uname)">cancel</button>
+                                </div>
+                              
+                                <div v-if="!discussion.pivot.contact && discussion.users[0].pivot.contact" class="status"> 
+                                  <button class="btn btn-sm btn-success" @click="acceptRequest(discussion.users[0].uname,discussion.id)">accept</button>
+                                  <button class="btn btn-sm btn-warning" @click="deleteRequest(discussion.users[0].uname)">delete</button>
+                                </div>
+                              </div>
+                          
+                            <div class="meta">
+                                <div class="lastMessage" v-if="discussion.messages[0]">{{ discussion.messages[0].content | max30() }}</div>
+                              <div class="createdAt" v-if="discussion.messages[0]">{{discussion.messages[0].created_at | moment("from", "now")}}</div>
+                            </div>
                   </div>
-                  <div v-if="!discussion.pivot.contact && discussion.users[0].pivot.contact" class="status"> 
-                    <button class="btn btn-sm btn-success" @click="acceptRequest(discussion.users[0].uname,discussion.id)">accept</button>
-                    <button class="btn btn-sm btn-warning" @click="deleteRequest(discussion.users[0].uname)">delete</button>
-                  </div>
-                </div>
-              
-              <div class="meta">
-              <div class="lastMessage" v-if="discussion.messages[0]">{{ discussion.messages[0].content | max30() }}</div>
-              <div class="createdAt" v-if="discussion.messages[0]">{{discussion.messages[0].created_at | moment("from", "now")}}</div>
-              </div>
               </div>
       </div>
     
-    
-    
+             
   </div>
 </template>
 
@@ -85,8 +93,7 @@ export default {
     },
     selectDiscussion(el){
       if(el.pivot.contact && el.users[0].pivot.contact) {
-        
-        this.$emit('discussion-selected' , el.id)
+          this.$emit('discussion-selected' , el.id)
       }
     },
     addContact(){
@@ -155,9 +162,30 @@ export default {
       height: 100%;
 }
   .discussion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 0.5rem 1rem;
     font: 1.1rem;
     box-shadow: 0 1px 1px 1px rgb(188, 219, 255);
+  }
+  .content {
+    flex: 100%;
+  }
+  .avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
+    box-shadow: 0 0 2px 1px rgb(171, 208, 250);
+    margin-right: 1rem ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink:0 ;
+  }
+  .avatar > img {
+    max-height:100%;
   }
   .discussion:hover {
     background-color: rgb(171, 208, 250);
