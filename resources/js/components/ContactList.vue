@@ -90,6 +90,7 @@ export default {
       }
     },
     addContact(){
+      
       this.form.post('/contacts')
       .then(response => this.form.reset())
       

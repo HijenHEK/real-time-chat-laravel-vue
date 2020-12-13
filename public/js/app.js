@@ -1939,6 +1939,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['discussion', 'id', 'auth'],
@@ -1966,7 +1972,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.form.reset();
       });
     }
-  }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -45655,7 +45662,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.discussion
+  return _vm.discussion && _vm.id
     ? _c("div", { staticClass: "chat-box" }, [
         _c(
           "div",
@@ -45671,8 +45678,15 @@ var render = function() {
               [
                 _c("span", { staticClass: "content" }, [
                   _vm._v(
-                    "\n            " + _vm._s(message.content) + "\n          "
-                  )
+                    "\n            \n          " +
+                      _vm._s(message.content) +
+                      "\n          "
+                  ),
+                  message.views.length > 0 && message.user.id === _vm.auth
+                    ? _c("div", [
+                        _vm._v("\n              viewed\n            ")
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("span", { staticClass: "time" }, [
@@ -46002,7 +46016,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container whatsgood" }, [
+  return _c("div", { staticClass: "container-xl whatsgood" }, [
     _c("div", { staticClass: "row justify-content-between h-100" }, [
       _c(
         "div",

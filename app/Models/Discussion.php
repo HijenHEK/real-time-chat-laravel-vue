@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPSTORM_META\map;
+
 class Discussion extends Model
 {
     use HasFactory;
@@ -23,4 +25,9 @@ class Discussion extends Model
         if(!$u) { $u = Auth::user(); }
         return $user->discussions()->whereIn('id' , $u->discussions())->get() ;
     }
+    // public function markAsRead() {
+    //     foreach($this->messages()->get() as $message){
+    //         $message->views()->sync(Auth::user()) ;
+    //     }            
+    // }
 }

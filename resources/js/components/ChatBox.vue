@@ -1,15 +1,21 @@
 <template>
-<div class="chat-box" v-if="discussion">
+<div class="chat-box" v-if="discussion && id">
 
 
   <div class="discussion">
     <div v-for="message in discussion" :key="message.id" class="msg"  :class="message.user.id === auth ? 'send' : 'receive' " >
+          
           <span class="content">
-            {{message.content}}
+            
+          {{message.content}}
+          <div v-if="message.views.length> 0 && message.user.id === auth">
+              viewed
+            </div> 
           </span>
           <span class="time">
               {{message.created_at | moment("calendar") | removeToday()}}
           </span>
+          
     </div>
   </div>
   
@@ -56,6 +62,9 @@ export default {
         
 
     }
+  },
+  mounted() {
+    
   }
 }
 </script>

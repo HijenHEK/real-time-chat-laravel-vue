@@ -114,7 +114,9 @@ class User extends Authenticatable
         $this->requestsIn()->detach($user);
         
     }
-
+    public function viewed(){
+        return $this->belongsToMany(Message::class , 'views' , 'user_id'  , 'message_id' ) ;
+    }
     public function isContact(User $user){
         return $this->contacts->contains($user);
     }

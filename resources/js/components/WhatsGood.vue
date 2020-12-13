@@ -1,5 +1,5 @@
 <template>
-    <div class="container whatsgood">
+    <div class="container-xl whatsgood">
         <div class="row justify-content-between h-100">
             <div class="col-md-4">
                 <contact-list v-on:discussion-selected="getDiscussion" :auth="auth" :selected="discussion_id" :discussions="discussions"></contact-list>
@@ -35,7 +35,10 @@ import ChatBox from './ChatBox.vue'
             
             getDiscussion(discussion) {
                 this.discussion_id = discussion
-                axios.get('/discussions/' + discussion).then((response) => {this.discussion = response.data})
+                axios.get('/discussions/' + discussion)
+                .then((response) => {this.discussion = response.data})
+
+
             }
         },
         mounted() {

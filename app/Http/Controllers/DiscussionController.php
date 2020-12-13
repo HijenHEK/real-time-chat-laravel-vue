@@ -30,7 +30,20 @@ class DiscussionController extends Controller
     }
 
     public function show(Discussion $discussion) {
-        return $discussion->messages()->with('user')->latest()->get();
+        foreach($discussion->messages()->get() as $message){
+            if(!$message->views->contains(Auth::user())) {
+                $message->views()->attach(Auth::user()) ;
+
+            }
+        } 
+
+        event(new Update());
+
+        return $discussion->messages()->with(['user','views' => function($query){
+            $query->where('user_id' , '<>' , Auth::id());
+        }])->latest()->get();
+
+        // return $discussion->messages()->with(['user','views'])->latest()->get();
     }
 
     // public function store(Request $r) {

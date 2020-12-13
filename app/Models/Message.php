@@ -15,4 +15,11 @@ class Message extends Model
     public function discussion() {
         return $this->belongsTo(Discussion::class);
     }
+    public function views(){
+        return $this->belongsToMany(User::class , 'views' , 'message_id' , 'user_id' ) ;
+    }
+    public function viewedBy(User $user){
+        return View::where('message_id' , $this->id)->where('user_id' , $user->id )->exists();
+    }
+
 }
