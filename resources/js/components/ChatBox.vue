@@ -2,8 +2,8 @@
 <div class="chat-box" v-if="discussion && id">
 
 
-  <div class="discussion">
-    <div v-for="message in discussion" :key="message.id" class="msg"  :class="message.user.id === auth ? 'send' : 'receive' " >
+  <div class="discussion" >
+    <div v-for="message in discussion.data" :key="message.id" class="msg"  :class="message.user.id === auth ? 'send' : 'receive' " >
           
           <span class="content">
 
@@ -11,7 +11,7 @@
           
           </span>
           <!-- <img class="eye" src="eye.jpg" v-if="message.views.length> 0 && message.user.id === auth && message.id > discussion.length - 1"> -->
-          <div class="avatar" v-if="message.views.length> 0 && message.user.id === auth && message.id > discussion.length - 1">
+          <div class="avatar" v-if="message.views.length> 0 && message.user.id === auth && message.id > discussion.data.length - 1">
           <img :src="message.user.avatar" >
           </div>
 
@@ -20,7 +20,21 @@
           </span>
               
     </div>
+    <div v-for="message in discussionLoad" :key="message.id" class="msg"  :class="message.user.id === auth ? 'send' : 'receive' " >
+          
+          <span class="content">
 
+          <span class="pre">{{message.content}}</span> 
+          
+          </span>
+          
+
+          <span class="time">
+              {{message.created_at | moment("calendar") | removeToday()}}
+          </span>
+              
+    </div>
+    <button v-if="page < discussion.last_page" @click="loadMore(page)" class="btn btn-light"> more ...</button>
   </div>
   
   
@@ -45,7 +59,9 @@ export default {
     return {
       form : new Form({
         content : ''
-      })
+      }),
+      discussionLoad : {},
+      page : 1,
 
     }
   },
@@ -58,6 +74,22 @@ export default {
     }
   },
   methods : {
+    loadMore(page){
+                
+      this.page++     
+      axios.get('/discussions/' + this.id +'?page=' + this.page)
+      .then((response) => {
+        this.discussionLoad = { ...this.discussionLoad , ...response.data.data }
+      })
+
+                    
+                  
+
+
+    },
+    handleScroll(e){
+      console.log(e.target.value)
+    },
     handleKeys(event){
 
       if (event.keyCode == 13  && !event.shiftKey) {

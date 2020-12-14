@@ -12014,6 +12014,26 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_0__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12060,7 +12080,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: new vform__WEBPACK_IMPORTED_MODULE_0___default.a({
         content: ''
-      })
+      }),
+      discussionLoad: {},
+      page: 1
     };
   },
   filters: {
@@ -12073,6 +12095,17 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    loadMore: function loadMore(page) {
+      var _this = this;
+
+      this.page++;
+      axios.get('/discussions/' + this.id + '?page=' + this.page).then(function (response) {
+        _this.discussionLoad = _objectSpread(_objectSpread({}, _this.discussionLoad), response.data.data);
+      });
+    },
+    handleScroll: function handleScroll(e) {
+      console.log(e.target.value);
+    },
     handleKeys: function handleKeys(event) {
       if (event.keyCode == 13 && !event.shiftKey) {
         event.preventDefault();
@@ -12080,16 +12113,16 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     sendMsg: function sendMsg() {
-      var _this = this;
+      var _this2 = this;
 
       this.form.post('/messages/' + this.id).then(function (response) {
-        _this.form.reset();
+        _this2.form.reset();
 
-        _this.form.fill({
+        _this2.form.fill({
           content: ''
         });
 
-        _this.$refs.content.focus();
+        _this2.$refs.content.focus();
       });
     }
   },
@@ -55909,44 +55942,91 @@ var render = function() {
         _c(
           "div",
           { staticClass: "discussion" },
-          _vm._l(_vm.discussion, function(message) {
-            return _c(
-              "div",
-              {
-                key: message.id,
-                staticClass: "msg",
-                class: message.user.id === _vm.auth ? "send" : "receive"
-              },
-              [
-                _c("span", { staticClass: "content" }, [
-                  _c("span", { staticClass: "pre" }, [
-                    _vm._v(_vm._s(message.content))
-                  ])
-                ]),
-                _vm._v(" "),
-                message.views.length > 0 &&
-                message.user.id === _vm.auth &&
-                message.id > _vm.discussion.length - 1
-                  ? _c("div", { staticClass: "avatar" }, [
-                      _c("img", { attrs: { src: message.user.avatar } })
+          [
+            _vm._l(_vm.discussion.data, function(message) {
+              return _c(
+                "div",
+                {
+                  key: message.id,
+                  staticClass: "msg",
+                  class: message.user.id === _vm.auth ? "send" : "receive"
+                },
+                [
+                  _c("span", { staticClass: "content" }, [
+                    _c("span", { staticClass: "pre" }, [
+                      _vm._v(_vm._s(message.content))
                     ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("span", { staticClass: "time" }, [
-                  _vm._v(
-                    "\n              " +
-                      _vm._s(
-                        _vm._f("removeToday")(
-                          _vm._f("moment")(message.created_at, "calendar")
-                        )
-                      ) +
-                      "\n          "
-                  )
-                ])
-              ]
-            )
-          }),
-          0
+                  ]),
+                  _vm._v(" "),
+                  message.views.length > 0 &&
+                  message.user.id === _vm.auth &&
+                  message.id > _vm.discussion.data.length - 1
+                    ? _c("div", { staticClass: "avatar" }, [
+                        _c("img", { attrs: { src: message.user.avatar } })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "time" }, [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(
+                          _vm._f("removeToday")(
+                            _vm._f("moment")(message.created_at, "calendar")
+                          )
+                        ) +
+                        "\n          "
+                    )
+                  ])
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _vm._l(_vm.discussionLoad, function(message) {
+              return _c(
+                "div",
+                {
+                  key: message.id,
+                  staticClass: "msg",
+                  class: message.user.id === _vm.auth ? "send" : "receive"
+                },
+                [
+                  _c("span", { staticClass: "content" }, [
+                    _c("span", { staticClass: "pre" }, [
+                      _vm._v(_vm._s(message.content))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "time" }, [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(
+                          _vm._f("removeToday")(
+                            _vm._f("moment")(message.created_at, "calendar")
+                          )
+                        ) +
+                        "\n          "
+                    )
+                  ])
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _vm.page < _vm.discussion.last_page
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-light",
+                    on: {
+                      click: function($event) {
+                        return _vm.loadMore(_vm.page)
+                      }
+                    }
+                  },
+                  [_vm._v(" more ...")]
+                )
+              : _vm._e()
+          ],
+          2
         ),
         _vm._v(" "),
         _c(

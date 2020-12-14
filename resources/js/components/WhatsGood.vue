@@ -1,7 +1,7 @@
 <template>
     <div class="container-xl whatsgood">
                 <contact-list v-on:search-discussions="search" v-on:discussion-selected="getDiscussion" :auth="auth" :selected="discussion_id" :discussions="searchResults"></contact-list>
-                <chat-box :id="discussion_id" :auth="auth" :discussion="discussion"></chat-box>
+                <chat-box  :id="discussion_id" :auth="auth" :discussion="discussion"></chat-box>
     </div>
 </template>
 
@@ -25,6 +25,7 @@ import ChatBox from './ChatBox.vue'
             }
         },
         methods : {
+            
             search(s){
                 if(s === '') {
                 this.searchResults = this.discussions

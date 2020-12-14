@@ -27,7 +27,7 @@ class DiscussionController extends Controller
         },'messages'=> function($query){
             $query->orderBy('created_at' , 'desc');
         } 
-        ])->latest()->get();
+        ])->latest()->get() ;
     }
 
     public function show(Request $r ,Discussion $discussion) {
@@ -50,7 +50,7 @@ class DiscussionController extends Controller
 
         return $discussion->messages()->with(['user','views' => function($query){
             $query->where('user_id' , '<>' , Auth::id());
-        }])->latest()->get();
+        }])->latest()->paginate(10);
 
         
         // return $discussion->messages()->with(['user','views'])->latest()->get();
