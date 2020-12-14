@@ -25,6 +25,21 @@ Vue.use(require('vue-moment'));
 
 Vue.component('whats-good', require('./components/WhatsGood.vue').default);
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+
+
+library.add(faBars) 
+library.add(faSearch) 
+library.add(faPlus) 
+library.add(faCog) 
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

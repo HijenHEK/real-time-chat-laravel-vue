@@ -2,23 +2,40 @@
   <div class="contactList">
     
     <div>
-      <form class="form" @submit.prevent="addContact" @keydown="form.onKeydown($event)">
-      <label for="username"></label>
-        <div class="group">
-          <input v-model="form.uname" id="username" type="text" name="uname" placeholder="enter a username"
-            class="form-control" :class="addContactClass">
-          <div v-if="form.errors.has('uname')" class="error"> 
-               {{form.errors.get('uname')}}
+      <div class="nav">
+          <a href="/profile">
+          
+              <font-awesome-icon class="icon" icon="cog" size="lg"/>
+          
+          </a> 
+
+          <font-awesome-icon @click="setMenu('search')" class="icon" icon="search" size="lg"/>
+
+          <font-awesome-icon @click="setMenu('add')" class="icon" icon="plus" size="lg"/>
+
+          <font-awesome-icon class="icon" icon="bars" size="lg"/>
+      </div>
+      <form v-if="menu==='add'" class="form" @submit.prevent="addContact" @keydown="form.onKeydown($event)">
+        <label for="username"></label>
+          <div class="group">
+            <input v-model="form.uname" ref="add" id="username" type="text" name="uname" placeholder="enter a username"
+              class="form-control" :class="addContactClass">
+            <div v-if="form.errors.has('uname')" class="error"> 
+                {{form.errors.get('uname')}}
+            </div>
+            <div v-else-if="form.errors.any()" class="error"> 
+                {{formResponse}}
+            </div>
+            <div v-else-if="form.successful" class="error"> 
+                {{formResponse}}
+            </div>
           </div>
-          <div v-else-if="form.errors.any()" class="error"> 
-               {{formResponse}}
-          </div>
-          <div v-else-if="form.successful" class="error"> 
-               {{formResponse}}
-          </div>
-        </div>
-        <button :disabled="form.busy" type="submit" class="btn btn-primary">add!</button>
+          <button :disabled="form.busy" type="submit" class="btn btn-primary">add!</button>
       </form>
+
+      <div v-if="menu==='search'" class="form" >
+        <input @keydown="filterDiscussions()" ref="search" type="text" class="form-control" v-model="searchQuery" placeholder="search for a discussion">
+      </div>
     </div>
 
       <div v-for="discussion in discussions"  :key="discussion.index"  @click="selectDiscussion(discussion)" >
@@ -70,6 +87,9 @@ export default {
       form : new Form({
         uname : '',
       }),
+      searchQuery : '',
+      search : '' ,
+      menu : 'none',
       formResponse : '',
     }
   },
@@ -89,6 +109,21 @@ export default {
   // },
 
   methods : {
+    setMenu(menu){
+      if(this.menu === menu) {
+        this.menu = 'none'
+      }else {
+
+        this.menu = menu
+       
+        setTimeout(() => this.$refs[menu].focus(), 1);
+      }
+      
+
+    },
+    filterDiscussions(){
+        this.$emit('search-discussions' , this.searchQuery)
+    },
     moment() {
       return moment("from" , "now");
     },
@@ -145,6 +180,19 @@ export default {
 </script>
 
 <style scoped>
+.nav {
+  padding: 0.5rem 1rem;
+  display: flex;
+  background-color: rgb(182, 220, 255);
+}
+.nav > *:last-child {
+  margin-left: auto ;
+}
+.icon {
+  color: #3490dc;
+  margin: 0 0.3rem;
+  cursor: pointer;
+}
 .header {
   display: flex;
   justify-content: space-between;

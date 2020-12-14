@@ -10917,7 +10917,7 @@ a.text-dark:focus {
   font-family: "JetBrains Mono", monospace;
   font-weight: 500;
   letter-spacing: 0.2rem;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: white !important;
   text-shadow: 0 1px 1px 1px #77bdff;
 }
@@ -10925,7 +10925,7 @@ a.text-dark:focus {
 .nav-link {
   font-family: "JetBrains Mono", monospace;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: white !important;
   text-shadow: 0 1px 1px 1px #77bdff;
 }
@@ -10936,8 +10936,8 @@ a.text-dark:focus {
 }
 
 .nav-avatar {
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;

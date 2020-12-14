@@ -2,7 +2,7 @@
     <div class="container-xl whatsgood">
         <div class="row justify-content-between h-100">
             <div class="col-md-4">
-                <contact-list v-on:discussion-selected="getDiscussion" :auth="auth" :selected="discussion_id" :discussions="discussions"></contact-list>
+                <contact-list v-on:search-discussions="search" v-on:discussion-selected="getDiscussion" :auth="auth" :selected="discussion_id" :discussions="searchResults"></contact-list>
             </div>
             <div class="col-md-8">
                 <chat-box :id="discussion_id" :auth="auth" :discussion="discussion"></chat-box>
@@ -23,12 +23,26 @@ import ChatBox from './ChatBox.vue'
         data(){
             return {
                 discussions : {},
+                searchResults : {},
                 discussion : null ,
                 discussion_id : null,
                 tabFocus : true 
             }
         },
         methods : {
+            search(s){
+                if(s === '') {
+                this.searchResults = this.discussions
+              }else {
+
+                this.searchResults = this.discussions.filter((d) => {
+                        // console.log(this.search , d.users[0].name)
+                        if( d.users[0].name.includes(s)) {
+                            return d
+                        }
+                });
+              }
+            },
             getContactList(){
                 axios.get('/discussions')
                     .then((response) => {this.discussions = response.data})
@@ -79,6 +93,7 @@ import ChatBox from './ChatBox.vue'
                     .then((response) => {
                         
                         this.discussions = response.data
+                        this.searchResults = response.data
                         console.log(this.discussions)
                     })
                     
