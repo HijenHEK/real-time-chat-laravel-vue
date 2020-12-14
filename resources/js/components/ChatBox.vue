@@ -104,12 +104,13 @@ export default {
   }
   .chat-box {
     height: 100%;
-    width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: space-between;
     background-color: rgb(232, 241, 252) ;
+    flex: 1;
+    width: 100%;
   }
   .discussion {
     display: flex;
@@ -212,4 +213,11 @@ export default {
       margin-left: 10px ;
       margin-bottom: 5px ;
   }
+
+   @media(max-width: 800px) {
+    
+      .chat-box {
+          margin-left: 3rem;
+        }
+   }
 </style>

@@ -1,9 +1,9 @@
 <template>
-  <div class="contactList">
+  <div class="contactList" :class="{'compact' : compact}">
     
     <div>
       <div class="nav">
-          <a href="/profile">
+          <a href="/profile" class="icon">
           
               <font-awesome-icon class="icon" icon="cog" size="lg"/>
           
@@ -13,7 +13,7 @@
 
           <font-awesome-icon @click="setMenu('add')" class="icon" icon="plus" size="lg"/>
 
-          <font-awesome-icon class="icon" icon="bars" size="lg"/>
+          <font-awesome-icon @click="collapse()" class="icon" icon="bars" size="lg"/>
       </div>
       <form v-if="menu==='add'" class="form" @submit.prevent="addContact" @keydown="form.onKeydown($event)">
         <label for="username"></label>
@@ -87,6 +87,7 @@ export default {
       form : new Form({
         uname : '',
       }),
+      compact :false ,
       searchQuery : '',
       search : '' ,
       menu : 'none',
@@ -121,6 +122,10 @@ export default {
       
 
     },
+    collapse(){
+      this.compact = !this.compact
+      this.menu = 'none'
+    },
     filterDiscussions(){
         this.$emit('search-discussions' , this.searchQuery)
     },
@@ -130,6 +135,7 @@ export default {
     selectDiscussion(el){
       if(el.pivot.contact && el.users[0].pivot.contact) {
           this.$emit('discussion-selected' , el.id)
+          this.collapse()
       }
     },
     addContact(){
@@ -180,6 +186,23 @@ export default {
 </script>
 
 <style scoped>
+.compact {
+  display: absolute;
+  width: 3rem !important; 
+  min-width: unset !important; 
+  background-color: rgb(182, 220, 255) !important;
+}
+.compact .icon:not(:last-child) {
+  display: none;
+}
+.compact .icon {
+
+}
+.compact .discussion {
+  display: none;
+  
+}
+
 .nav {
   padding: 0.5rem 1rem;
   display: flex;
@@ -209,7 +232,10 @@ export default {
 .contactList{
       box-shadow : 1px 0 2px 1px rgb(182, 220, 255);
       height: 100%;
+      width: 30%;
+      min-width: 20rem;
 }
+
   .discussion {
     display: flex;
     align-items: center;
@@ -303,6 +329,7 @@ export default {
     flex-direction: column;
     justify-content: unset;
   }
+   
 
   .lastMessage {
     flex: unset;
@@ -314,4 +341,12 @@ export default {
     justify-self: flex-end;
   }
   }
+   @media(max-width: 800px) {
+    .contactList {
+      position: absolute;
+      z-index: 555;
+      backface-visibility: hidden;
+      background-color: white;
+    }
+   }
 </style>

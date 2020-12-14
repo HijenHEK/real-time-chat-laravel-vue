@@ -1,13 +1,7 @@
 <template>
     <div class="container-xl whatsgood">
-        <div class="row justify-content-between h-100">
-            <div class="col-md-4">
                 <contact-list v-on:search-discussions="search" v-on:discussion-selected="getDiscussion" :auth="auth" :selected="discussion_id" :discussions="searchResults"></contact-list>
-            </div>
-            <div class="col-md-8">
                 <chat-box :id="discussion_id" :auth="auth" :discussion="discussion"></chat-box>
-            </div>            
-        </div>
     </div>
 </template>
 
@@ -139,6 +133,12 @@ import ChatBox from './ChatBox.vue'
         box-shadow : 0px 0 2px 2px rgb(182, 220, 255);
         height: 100%;
             background-color: rgb(239, 243, 248) ;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        padding: 0;
+        justify-content: stretch;
+        
     }
     .col-md-4 , .col-md-8 {
        padding : 0 ; 

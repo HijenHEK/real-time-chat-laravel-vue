@@ -12197,6 +12197,7 @@ __webpack_require__.r(__webpack_exports__);
       form: new vform__WEBPACK_IMPORTED_MODULE_0___default.a({
         uname: ''
       }),
+      compact: false,
       searchQuery: '',
       search: '',
       menu: 'none',
@@ -12230,6 +12231,10 @@ __webpack_require__.r(__webpack_exports__);
         }, 1);
       }
     },
+    collapse: function collapse() {
+      this.compact = !this.compact;
+      this.menu = 'none';
+    },
     filterDiscussions: function filterDiscussions() {
       this.$emit('search-discussions', this.searchQuery);
     },
@@ -12249,6 +12254,7 @@ __webpack_require__.r(__webpack_exports__);
     selectDiscussion: function selectDiscussion(el) {
       if (el.pivot.contact && el.users[0].pivot.contact) {
         this.$emit('discussion-selected', el.id);
+        this.collapse();
       }
     },
     addContact: function addContact() {
@@ -12307,12 +12313,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ContactList_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ContactList.vue */ "./resources/js/components/ContactList.vue");
 /* harmony import */ var _ChatBox_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ChatBox.vue */ "./resources/js/components/ChatBox.vue");
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -16887,7 +16887,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.eye[data-v-5142db38] {\n  max-width: 1.5rem;\n  margin: 0 0.2rem ;\n}\n.avatar[data-v-5142db38] {\n  width: 1.5rem;\n  height: 1.5rem;\n  border-radius: 100%;\n  overflow: hidden;\n  box-shadow: 0 0 2px 1px rgb(100, 198, 255);\n  margin: 0 0.5rem;\n}\n.avatar img[data-v-5142db38] {\n  height: 100%;\n}\n.chat-box[data-v-5142db38] {\n  height: 100%;\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: space-between;\n  background-color: rgb(232, 241, 252) ;\n}\n.discussion[data-v-5142db38] {\n  display: flex;\n  flex-direction: column-reverse;\n  width: 100%;\n  height: 100%;\n  overflow-y: scroll;\n  overflow-x:hidden;\n}\n/*.discussion::-webkit-scrollbar-track-piece {\n    color: rgb(0, 0, 0);\n    border-radius: 5px;\n}\n .discussion::-webkit-scrollbar-corner {\n    display: none;\n}\n\n.discussion::-webkit-scrollbar-track {\n    box-shadow: inset 0 0 5px rgb(0, 162, 255); \n\n    max-width: 7px;\n    color: rgb(0, 132, 255);\n    background-color: rgb(232, 241, 252);\n\n}*/\n.msg[data-v-5142db38] {\n\n  margin: 0.5rem;\n\n  max-width: 80%;\n  display: flex;\n  align-items: flex-end;\n}\n.msg:last-child .content[data-v-5142db38]::before{\n  content: '';\n  padding: 5rem;\n}\n.time[data-v-5142db38] {\n  margin: 0.5rem;\n  font-size: 0.7rem;\n  opacity: 0.1;\n}\n.msg:hover .time[data-v-5142db38]{\n  opacity: 0.8;\n  transition:all 0.5s ease-in-out;\n}\n.msg .content[data-v-5142db38] {\n  color: white;\n  padding: 0.5rem 1rem;\n  border-radius:  5px;\n  min-width: 4rem;\n  word-break: break-all ;\n  box-shadow: 0 0 1px 1px rgb(0, 162, 255) ;\n}\n.send .content[data-v-5142db38] {\n  text-align: right;\n  background-color: rgb(0, 132, 255) ;\n}\n.receive .content[data-v-5142db38] {\n  text-align: right;\n      background-color: rgb(0, 162, 255) ;\n}\n.send[data-v-5142db38] {\n  align-self: flex-end;\n  text-align: right;\n  flex-direction: row-reverse;\n}\n.receive[data-v-5142db38] {\n  align-self: flex-start;\n}\n.pre[data-v-5142db38] {\n  white-space: pre-line;\n}\n.form[data-v-5142db38] {\n  margin-top: 10px ;\n  background-color: rgb(188, 219, 255) ;\n  padding: 0.5rem 1rem;\n  display: flex;\n  justify-content: space-between;\n  align-items:  flex-end;\n  box-shadow: 0 -1px 2px 1px rgb(188, 219, 255);\n}\ntextarea[data-v-5142db38] {\n  border: none;\n  outline: none;\n  border-radius: 5px;\n  resize: none;\n  flex: 1;\n}\nbutton[data-v-5142db38] {\n    margin-left: 10px ;\n    margin-bottom: 5px ;\n}\n", ""]);
+exports.push([module.i, "\n.eye[data-v-5142db38] {\n  max-width: 1.5rem;\n  margin: 0 0.2rem ;\n}\n.avatar[data-v-5142db38] {\n  width: 1.5rem;\n  height: 1.5rem;\n  border-radius: 100%;\n  overflow: hidden;\n  box-shadow: 0 0 2px 1px rgb(100, 198, 255);\n  margin: 0 0.5rem;\n}\n.avatar img[data-v-5142db38] {\n  height: 100%;\n}\n.chat-box[data-v-5142db38] {\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: space-between;\n  background-color: rgb(232, 241, 252) ;\n  flex: 1;\n  width: 100%;\n}\n.discussion[data-v-5142db38] {\n  display: flex;\n  flex-direction: column-reverse;\n  width: 100%;\n  height: 100%;\n  overflow-y: scroll;\n  overflow-x:hidden;\n}\n/*.discussion::-webkit-scrollbar-track-piece {\n    color: rgb(0, 0, 0);\n    border-radius: 5px;\n}\n .discussion::-webkit-scrollbar-corner {\n    display: none;\n}\n\n.discussion::-webkit-scrollbar-track {\n    box-shadow: inset 0 0 5px rgb(0, 162, 255); \n\n    max-width: 7px;\n    color: rgb(0, 132, 255);\n    background-color: rgb(232, 241, 252);\n\n}*/\n.msg[data-v-5142db38] {\n\n  margin: 0.5rem;\n\n  max-width: 80%;\n  display: flex;\n  align-items: flex-end;\n}\n.msg:last-child .content[data-v-5142db38]::before{\n  content: '';\n  padding: 5rem;\n}\n.time[data-v-5142db38] {\n  margin: 0.5rem;\n  font-size: 0.7rem;\n  opacity: 0.1;\n}\n.msg:hover .time[data-v-5142db38]{\n  opacity: 0.8;\n  transition:all 0.5s ease-in-out;\n}\n.msg .content[data-v-5142db38] {\n  color: white;\n  padding: 0.5rem 1rem;\n  border-radius:  5px;\n  min-width: 4rem;\n  word-break: break-all ;\n  box-shadow: 0 0 1px 1px rgb(0, 162, 255) ;\n}\n.send .content[data-v-5142db38] {\n  text-align: right;\n  background-color: rgb(0, 132, 255) ;\n}\n.receive .content[data-v-5142db38] {\n  text-align: right;\n      background-color: rgb(0, 162, 255) ;\n}\n.send[data-v-5142db38] {\n  align-self: flex-end;\n  text-align: right;\n  flex-direction: row-reverse;\n}\n.receive[data-v-5142db38] {\n  align-self: flex-start;\n}\n.pre[data-v-5142db38] {\n  white-space: pre-line;\n}\n.form[data-v-5142db38] {\n  margin-top: 10px ;\n  background-color: rgb(188, 219, 255) ;\n  padding: 0.5rem 1rem;\n  display: flex;\n  justify-content: space-between;\n  align-items:  flex-end;\n  box-shadow: 0 -1px 2px 1px rgb(188, 219, 255);\n}\ntextarea[data-v-5142db38] {\n  border: none;\n  outline: none;\n  border-radius: 5px;\n  resize: none;\n  flex: 1;\n}\nbutton[data-v-5142db38] {\n    margin-left: 10px ;\n    margin-bottom: 5px ;\n}\n@media(max-width: 800px) {\n.chat-box[data-v-5142db38] {\n        margin-left: 3rem;\n}\n}\n", ""]);
 
 // exports
 
@@ -16906,7 +16906,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.nav[data-v-0ee8d67a] {\n  padding: 0.5rem 1rem;\n  display: flex;\n  background-color: rgb(182, 220, 255);\n}\n.nav > *[data-v-0ee8d67a]:last-child {\n  margin-left: auto ;\n}\n.icon[data-v-0ee8d67a] {\n  color: #3490dc;\n  margin: 0 0.3rem;\n  cursor: pointer;\n}\n.header[data-v-0ee8d67a] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.status[data-v-0ee8d67a]  {\n  font-weight: 500;\n  font-size: 0.8rem;\n  color: rgba(255, 121, 44, 0.836);\n}\n.selected .header .status[data-v-0ee8d67a] {\n  color: rgb(255, 58, 58);\n}\n.contactList[data-v-0ee8d67a]{\n      box-shadow : 1px 0 2px 1px rgb(182, 220, 255);\n      height: 100%;\n}\n.discussion[data-v-0ee8d67a] {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 0.5rem 1rem;\n    font: 1.1rem;\n    box-shadow: 0 1px 1px 1px rgb(188, 219, 255);\n}\n.content[data-v-0ee8d67a] {\n    flex: 100%;\n}\n.avatar[data-v-0ee8d67a] {\n    width: 4rem;\n    height: 4rem;\n    border-radius: 100%;\n    box-shadow: 0 0 2px 1px rgb(171, 208, 250);\n    margin-right: 1rem ;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    overflow: hidden;\n    flex-shrink:0 ;\n}\n.avatar > img[data-v-0ee8d67a] {\n    max-height:100%;\n}\n.discussion[data-v-0ee8d67a]:hover {\n    background-color: rgb(171, 208, 250);\n    color: black;\n    cursor: pointer;\n}\n.discussion.selected[data-v-0ee8d67a] {\n    background-color: rgba(44, 146, 255, 0.836);\n    color: white;\n}\n.form[data-v-0ee8d67a] {\n    background-color: rgb(188, 219, 255) ;\n    padding: 0.5rem 1rem;\n    display: flex;\n    justify-content: space-between;\n    align-items:  flex-start;\n    box-shadow: 0 1px 2px 1px rgb(188, 219, 255);\n}\n.error[data-v-0ee8d67a] {\n    padding-top: 5px;\n    padding-left: 5px;\n    color: rgb(231, 56, 56);\n}\ninput[data-v-0ee8d67a] {\n    border: none;\n    outline: none;\n    border-radius: 5px;\n    resize: none;\n    \n    flex: 1;\n}\n.group[data-v-0ee8d67a] {\n    width: 100%;\n}\nbutton[data-v-0ee8d67a] {\n      margin-left: 10px ;\n}\n.username[data-v-0ee8d67a] {\n        padding: 0.5rem 0;\n        font-size: 1.1rem;\n        font-weight: 500;\n}\n.unreadCount[data-v-0ee8d67a] {\n    box-shadow: 0 0 2px 1px white;\n    color: white;\n    border-radius: 10px;\n    padding: 0.3rem 0.6rem;\n    background-color: rgba(253, 71, 39, 0.836) ;\n}\n.meta[data-v-0ee8d67a] {\n    display: flex;\n    justify-content: space-between;\n    padding-bottom: 0.2rem;\n}\n.lastMessage[data-v-0ee8d67a] {\n    flex: 60%;\n}\n.createdAt[data-v-0ee8d67a] {\n    flex: 40%;\n}\n@media(max-width: 1000px) {\n.meta[data-v-0ee8d67a] {\n    flex-direction: column;\n    justify-content: unset;\n}\n.lastMessage[data-v-0ee8d67a] {\n    flex: unset;\n}\n.createdAt[data-v-0ee8d67a] {\n        flex: unset;\n\n    font-size: 0.8rem;\n    justify-self: flex-end;\n}\n}\n", ""]);
+exports.push([module.i, "\n.compact[data-v-0ee8d67a] {\n  display: absolute;\n  width: 3rem !important; \n  min-width: unset !important; \n  background-color: rgb(182, 220, 255) !important;\n}\n.compact .icon[data-v-0ee8d67a]:not(:last-child) {\n  display: none;\n}\n.compact .icon[data-v-0ee8d67a] {\n}\n.compact .discussion[data-v-0ee8d67a] {\n  display: none;\n}\n.nav[data-v-0ee8d67a] {\n  padding: 0.5rem 1rem;\n  display: flex;\n  background-color: rgb(182, 220, 255);\n}\n.nav > *[data-v-0ee8d67a]:last-child {\n  margin-left: auto ;\n}\n.icon[data-v-0ee8d67a] {\n  color: #3490dc;\n  margin: 0 0.3rem;\n  cursor: pointer;\n}\n.header[data-v-0ee8d67a] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.status[data-v-0ee8d67a]  {\n  font-weight: 500;\n  font-size: 0.8rem;\n  color: rgba(255, 121, 44, 0.836);\n}\n.selected .header .status[data-v-0ee8d67a] {\n  color: rgb(255, 58, 58);\n}\n.contactList[data-v-0ee8d67a]{\n      box-shadow : 1px 0 2px 1px rgb(182, 220, 255);\n      height: 100%;\n      width: 30%;\n      min-width: 20rem;\n}\n.discussion[data-v-0ee8d67a] {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 0.5rem 1rem;\n    font: 1.1rem;\n    box-shadow: 0 1px 1px 1px rgb(188, 219, 255);\n}\n.content[data-v-0ee8d67a] {\n    flex: 100%;\n}\n.avatar[data-v-0ee8d67a] {\n    width: 4rem;\n    height: 4rem;\n    border-radius: 100%;\n    box-shadow: 0 0 2px 1px rgb(171, 208, 250);\n    margin-right: 1rem ;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    overflow: hidden;\n    flex-shrink:0 ;\n}\n.avatar > img[data-v-0ee8d67a] {\n    max-height:100%;\n}\n.discussion[data-v-0ee8d67a]:hover {\n    background-color: rgb(171, 208, 250);\n    color: black;\n    cursor: pointer;\n}\n.discussion.selected[data-v-0ee8d67a] {\n    background-color: rgba(44, 146, 255, 0.836);\n    color: white;\n}\n.form[data-v-0ee8d67a] {\n    background-color: rgb(188, 219, 255) ;\n    padding: 0.5rem 1rem;\n    display: flex;\n    justify-content: space-between;\n    align-items:  flex-start;\n    box-shadow: 0 1px 2px 1px rgb(188, 219, 255);\n}\n.error[data-v-0ee8d67a] {\n    padding-top: 5px;\n    padding-left: 5px;\n    color: rgb(231, 56, 56);\n}\ninput[data-v-0ee8d67a] {\n    border: none;\n    outline: none;\n    border-radius: 5px;\n    resize: none;\n    \n    flex: 1;\n}\n.group[data-v-0ee8d67a] {\n    width: 100%;\n}\nbutton[data-v-0ee8d67a] {\n      margin-left: 10px ;\n}\n.username[data-v-0ee8d67a] {\n        padding: 0.5rem 0;\n        font-size: 1.1rem;\n        font-weight: 500;\n}\n.unreadCount[data-v-0ee8d67a] {\n    box-shadow: 0 0 2px 1px white;\n    color: white;\n    border-radius: 10px;\n    padding: 0.3rem 0.6rem;\n    background-color: rgba(253, 71, 39, 0.836) ;\n}\n.meta[data-v-0ee8d67a] {\n    display: flex;\n    justify-content: space-between;\n    padding-bottom: 0.2rem;\n}\n.lastMessage[data-v-0ee8d67a] {\n    flex: 60%;\n}\n.createdAt[data-v-0ee8d67a] {\n    flex: 40%;\n}\n@media(max-width: 1000px) {\n.meta[data-v-0ee8d67a] {\n    flex-direction: column;\n    justify-content: unset;\n}\n.lastMessage[data-v-0ee8d67a] {\n    flex: unset;\n}\n.createdAt[data-v-0ee8d67a] {\n        flex: unset;\n\n    font-size: 0.8rem;\n    justify-self: flex-end;\n}\n}\n@media(max-width: 800px) {\n.contactList[data-v-0ee8d67a] {\n      position: absolute;\n      z-index: 555;\n      -webkit-backface-visibility: hidden;\n              backface-visibility: hidden;\n      background-color: white;\n}\n}\n", ""]);
 
 // exports
 
@@ -16925,7 +16925,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.whatsgood[data-v-65d4f7b1] {\n    box-shadow : 0px 0 2px 2px rgb(182, 220, 255);\n    height: 100%;\n        background-color: rgb(239, 243, 248) ;\n}\n.col-md-4[data-v-65d4f7b1], .col-md-8[data-v-65d4f7b1] {\n   padding : 0 ; \n  height: 100%;\n}\n", ""]);
+exports.push([module.i, "\n.whatsgood[data-v-65d4f7b1] {\n    box-shadow : 0px 0 2px 2px rgb(182, 220, 255);\n    height: 100%;\n        background-color: rgb(239, 243, 248) ;\n    overflow: hidden;\n    position: relative;\n    display: flex;\n    padding: 0;\n    justify-content: stretch;\n}\n.col-md-4[data-v-65d4f7b1], .col-md-8[data-v-65d4f7b1] {\n   padding : 0 ; \n  height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -56025,7 +56025,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "contactList" },
+    { staticClass: "contactList", class: { compact: _vm.compact } },
     [
       _c("div", [
         _c(
@@ -56034,7 +56034,7 @@ var render = function() {
           [
             _c(
               "a",
-              { attrs: { href: "/profile" } },
+              { staticClass: "icon", attrs: { href: "/profile" } },
               [
                 _c("font-awesome-icon", {
                   staticClass: "icon",
@@ -56066,7 +56066,12 @@ var render = function() {
             _vm._v(" "),
             _c("font-awesome-icon", {
               staticClass: "icon",
-              attrs: { icon: "bars", size: "lg" }
+              attrs: { icon: "bars", size: "lg" },
+              on: {
+                click: function($event) {
+                  return _vm.collapse()
+                }
+              }
             })
           ],
           1
@@ -56357,43 +56362,32 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-xl whatsgood" }, [
-    _c("div", { staticClass: "row justify-content-between h-100" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-4" },
-        [
-          _c("contact-list", {
-            attrs: {
-              auth: _vm.auth,
-              selected: _vm.discussion_id,
-              discussions: _vm.searchResults
-            },
-            on: {
-              "search-discussions": _vm.search,
-              "discussion-selected": _vm.getDiscussion
-            }
-          })
-        ],
-        1
-      ),
+  return _c(
+    "div",
+    { staticClass: "container-xl whatsgood" },
+    [
+      _c("contact-list", {
+        attrs: {
+          auth: _vm.auth,
+          selected: _vm.discussion_id,
+          discussions: _vm.searchResults
+        },
+        on: {
+          "search-discussions": _vm.search,
+          "discussion-selected": _vm.getDiscussion
+        }
+      }),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-8" },
-        [
-          _c("chat-box", {
-            attrs: {
-              id: _vm.discussion_id,
-              auth: _vm.auth,
-              discussion: _vm.discussion
-            }
-          })
-        ],
-        1
-      )
-    ])
-  ])
+      _c("chat-box", {
+        attrs: {
+          id: _vm.discussion_id,
+          auth: _vm.auth,
+          discussion: _vm.discussion
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
