@@ -12095,16 +12095,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
-    loadMore: function loadMore(page) {
+    loadMore: function loadMore() {
       var _this = this;
 
       this.page++;
       axios.get('/discussions/' + this.id + '?page=' + this.page).then(function (response) {
         _this.discussionLoad = _objectSpread(_objectSpread({}, _this.discussionLoad), response.data.data);
       });
-    },
-    handleScroll: function handleScroll(e) {
-      console.log(e);
     },
     handleKeys: function handleKeys(event) {
       if (event.keyCode == 13 && !event.shiftKey) {
@@ -12406,7 +12403,7 @@ __webpack_require__.r(__webpack_exports__);
       this.discussion_id = discussion;
 
       if (this.discussion_id) {
-        axios.get('/discussions/' + discussion + '?view=' + this.tabFocus).then(function (response) {
+        axios.get('/discussions/' + discussion + '?page=1&view=' + this.tabFocus).then(function (response) {
           _this2.discussion = response.data;
         });
       }
@@ -55941,7 +55938,7 @@ var render = function() {
     ? _c("div", { staticClass: "chat-box" }, [
         _c(
           "div",
-          { staticClass: "discussion" },
+          { ref: "discussion", staticClass: "discussion" },
           [
             _vm._l(_vm.discussion.data, function(message) {
               return _c(
@@ -56018,7 +56015,7 @@ var render = function() {
                     staticClass: "btn btn-light",
                     on: {
                       click: function($event) {
-                        return _vm.loadMore(_vm.page)
+                        return _vm.loadMore()
                       }
                     }
                   },

@@ -1,7 +1,7 @@
 <template>
     <div class="container-xl whatsgood">
                 <contact-list v-on:search-discussions="search" v-on:discussion-selected="getDiscussion" :auth="auth" :selected="discussion_id" :discussions="searchResults"></contact-list>
-                <chat-box  :id="discussion_id" :auth="auth" :discussion="discussion"></chat-box>
+                <chat-box :id="discussion_id" :auth="auth" :discussion="discussion"></chat-box>
     </div>
 </template>
 
@@ -58,7 +58,7 @@ import ChatBox from './ChatBox.vue'
                 
                 this.discussion_id = discussion
                 if(this.discussion_id) {
-                    axios.get('/discussions/' + discussion +'?view=' + this.tabFocus)
+                    axios.get('/discussions/' + discussion +'?page=1&view=' + this.tabFocus)
                     .then((response) => {this.discussion = response.data})
 
                 }
