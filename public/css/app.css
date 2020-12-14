@@ -11021,3 +11021,13 @@ form .avatar {
   width: 10rem;
 }
 
+.main {
+  padding: 2rem 0;
+}
+
+@media (max-width: 767.98px) {
+  .main {
+    padding: 0;
+  }
+}
+
