@@ -25,7 +25,7 @@
   
   
   <form  class="form"  @submit.prevent="sendMsg" @keypress="handleKeys($event)">
-      <textarea v-model="form.content" type="text" name="content"
+      <textarea v-model="form.content" ref="content" type="text" name="content"
           class="form-control" :class="{ 'is-invalid': form.errors.has('content') }"></textarea>
 
       <button :disabled="form.busy" type="submit" class="btn btn-primary">Send !</button>
@@ -73,7 +73,7 @@ export default {
         this.form.fill({
           content :''
         })
-        this.form.content.focus();
+        this.$refs.content.focus();
         
       })
         

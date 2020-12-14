@@ -26,7 +26,8 @@ import ChatBox from './ChatBox.vue'
                 searchResults : {},
                 discussion : null ,
                 discussion_id : null,
-                tabFocus : true 
+                tabFocus : true ,
+                unreadCount : 0
             }
         },
         methods : {
@@ -45,15 +46,34 @@ import ChatBox from './ChatBox.vue'
             },
             getContactList(){
                 axios.get('/discussions')
-                    .then((response) => {this.discussions = response.data})
+                    .then((response) => {
+                        this.discussions = response.data
+                        this.searchResults = response.data
+
+                        }).then(()=>{
+                        var count = 0
+                        for( const d in this.discussions ) {
+                            count = count + this.discussions[d].unreadCount
+                        }
+                        this.unreadCount =  count 
+                    });
             },
             
             getDiscussion(discussion) {
+                
                 this.discussion_id = discussion
-                axios.get('/discussions/' + discussion +'?view=' + this.tabFocus)
-                .then((response) => {this.discussion = response.data})
+                if(this.discussion_id) {
+                    axios.get('/discussions/' + discussion +'?view=' + this.tabFocus)
+                    .then((response) => {this.discussion = response.data})
+
+                }
+                
 
 
+            },
+            playNew(){
+                var audio = new Audio('new.mp3');
+                audio.play();
             },
             detectFocusOut() {
                     let inView = false;
@@ -80,6 +100,12 @@ import ChatBox from './ChatBox.vue'
                 if(val){
                     this.getDiscussion(this.discussion_id)
                 }
+            },
+            unreadCount:function(oldval , newval) {
+                if(newval){
+                    console.log('new msg')
+                    this.playNew()
+                }
             }
         },
         mounted() {
@@ -95,7 +121,14 @@ import ChatBox from './ChatBox.vue'
                         this.discussions = response.data
                         this.searchResults = response.data
                         console.log(this.discussions)
-                    })
+                    }).then(()=>{
+                        var count = 0
+                        for( const d in this.discussions ) {
+                            count = count + this.discussions[d].unreadCount
+                        }
+                        this.unreadCount =  count 
+                    });
+                    
                     
         }
     }

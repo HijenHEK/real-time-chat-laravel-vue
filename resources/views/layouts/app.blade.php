@@ -20,6 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-xl">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -37,6 +38,7 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -86,5 +88,7 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        
 </body>
 </html>

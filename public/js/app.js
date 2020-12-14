@@ -12089,7 +12089,7 @@ __webpack_require__.r(__webpack_exports__);
           content: ''
         });
 
-        _this.form.content.focus();
+        _this.$refs.content.focus();
       });
     }
   },
@@ -12334,7 +12334,8 @@ __webpack_require__.r(__webpack_exports__);
       searchResults: {},
       discussion: null,
       discussion_id: null,
-      tabFocus: true
+      tabFocus: true,
+      unreadCount: 0
     };
   },
   methods: {
@@ -12355,15 +12356,31 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/discussions').then(function (response) {
         _this.discussions = response.data;
+        _this.searchResults = response.data;
+      }).then(function () {
+        var count = 0;
+
+        for (var d in _this.discussions) {
+          count = count + _this.discussions[d].unreadCount;
+        }
+
+        _this.unreadCount = count;
       });
     },
     getDiscussion: function getDiscussion(discussion) {
       var _this2 = this;
 
       this.discussion_id = discussion;
-      axios.get('/discussions/' + discussion + '?view=' + this.tabFocus).then(function (response) {
-        _this2.discussion = response.data;
-      });
+
+      if (this.discussion_id) {
+        axios.get('/discussions/' + discussion + '?view=' + this.tabFocus).then(function (response) {
+          _this2.discussion = response.data;
+        });
+      }
+    },
+    playNew: function playNew() {
+      var audio = new Audio('new.mp3');
+      audio.play();
     },
     detectFocusOut: function detectFocusOut() {
       var _this3 = this;
@@ -12395,6 +12412,12 @@ __webpack_require__.r(__webpack_exports__);
       if (val) {
         this.getDiscussion(this.discussion_id);
       }
+    },
+    unreadCount: function unreadCount(oldval, newval) {
+      if (newval) {
+        console.log('new msg');
+        this.playNew();
+      }
     }
   },
   mounted: function mounted() {
@@ -12410,6 +12433,14 @@ __webpack_require__.r(__webpack_exports__);
       _this4.discussions = response.data;
       _this4.searchResults = response.data;
       console.log(_this4.discussions);
+    }).then(function () {
+      var count = 0;
+
+      for (var d in _this4.discussions) {
+        count = count + _this4.discussions[d].unreadCount;
+      }
+
+      _this4.unreadCount = count;
     });
   }
 });
@@ -55942,6 +55973,7 @@ var render = function() {
                   expression: "form.content"
                 }
               ],
+              ref: "content",
               staticClass: "form-control",
               class: { "is-invalid": _vm.form.errors.has("content") },
               attrs: { type: "text", name: "content" },
