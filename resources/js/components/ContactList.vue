@@ -33,7 +33,8 @@
                                 <div class="username">
                                   {{discussion.users[0].name}}
                                 </div>
-                            
+
+                                <div class="unreadCount" v-if="discussion.unreadCount"> {{discussion.unreadCount}}</div>
                   
                                 <div v-if="!discussion.users[0].pivot.contact && discussion.pivot.contact" class="status">
                                 
@@ -45,7 +46,7 @@
                                   <button class="btn btn-sm btn-success" @click="acceptRequest(discussion.users[0].uname,discussion.id)">accept</button>
                                   <button class="btn btn-sm btn-warning" @click="deleteRequest(discussion.users[0].uname)">delete</button>
                                 </div>
-                              </div>
+                            </div>
                           
                             <div class="meta">
                                 <div class="lastMessage" v-if="discussion.messages[0]">{{ discussion.messages[0].content | max30() }}</div>
@@ -230,6 +231,13 @@ export default {
         font-weight: 500;
 
   }
+  .unreadCount {
+    box-shadow: 0 0 2px 1px white;
+    color: white;
+    border-radius: 10px;
+    padding: 0.3rem 0.6rem;
+    background-color: rgba(253, 71, 39, 0.836) ;
+  }
   .meta {
     display: flex;
     justify-content: space-between;
@@ -237,9 +245,25 @@ export default {
   }
 
   .lastMessage {
-    flex: 70%;
+    flex: 60%;
   }
   .createdAt {
-    flex: 30%;
+    flex: 40%;
+  }
+  @media(max-width: 1000px) {
+    .meta {
+    flex-direction: column;
+    justify-content: unset;
+  }
+
+  .lastMessage {
+    flex: unset;
+  }
+  .createdAt {
+        flex: unset;
+
+    font-size: 0.8rem;
+    justify-self: flex-end;
+  }
   }
 </style>

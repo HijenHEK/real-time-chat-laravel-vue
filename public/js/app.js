@@ -2050,6 +2050,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 // import moment from 'moment'
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2176,7 +2177,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       discussions: {},
       discussion: null,
-      discussion_id: null
+      discussion_id: null,
+      tabFocus: true
     };
   },
   methods: {
@@ -2191,22 +2193,54 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.discussion_id = discussion;
-      axios.get('/discussions/' + discussion).then(function (response) {
+      axios.get('/discussions/' + discussion + '?view=' + this.tabFocus).then(function (response) {
         _this2.discussion = response.data;
       });
+    },
+    detectFocusOut: function detectFocusOut() {
+      var _this3 = this;
+
+      var inView = false;
+
+      var onWindowFocusChange = function onWindowFocusChange(e) {
+        if ({
+          focus: 1,
+          pageshow: 1
+        }[e.type]) {
+          if (inView) return;
+          _this3.tabFocus = true;
+          inView = true;
+        } else if (inView) {
+          _this3.tabFocus = !_this3.tabFocus;
+          inView = false;
+        }
+      };
+
+      window.addEventListener('focus', onWindowFocusChange);
+      window.addEventListener('blur', onWindowFocusChange);
+      window.addEventListener('pageshow', onWindowFocusChange);
+      window.addEventListener('pagehide', onWindowFocusChange);
+    }
+  },
+  watch: {
+    tabFocus: function tabFocus(val) {
+      if (val) {
+        this.getDiscussion(this.discussion_id);
+      }
     }
   },
   mounted: function mounted() {
-    var _this3 = this;
+    var _this4 = this;
 
+    this.detectFocusOut();
     Echo.channel('update').listen('Update', function (e) {
-      _this3.getContactList();
+      _this4.getContactList();
 
-      _this3.getDiscussion(_this3.discussion_id);
+      _this4.getDiscussion(_this4.discussion_id);
     });
     axios.get('/discussions').then(function (response) {
-      _this3.discussions = response.data;
-      console.log(_this3.discussions);
+      _this4.discussions = response.data;
+      console.log(_this4.discussions);
     });
   }
 });
@@ -6672,7 +6706,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.header[data-v-0ee8d67a] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.status[data-v-0ee8d67a]  {\n  font-weight: 500;\n  font-size: 0.8rem;\n  color: rgba(255, 121, 44, 0.836);\n}\n.selected .header .status[data-v-0ee8d67a] {\n  color: rgb(255, 58, 58);\n}\n.contactList[data-v-0ee8d67a]{\n      box-shadow : 1px 0 2px 1px rgb(182, 220, 255);\n      height: 100%;\n}\n.discussion[data-v-0ee8d67a] {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 0.5rem 1rem;\n    font: 1.1rem;\n    box-shadow: 0 1px 1px 1px rgb(188, 219, 255);\n}\n.content[data-v-0ee8d67a] {\n    flex: 100%;\n}\n.avatar[data-v-0ee8d67a] {\n    width: 4rem;\n    height: 4rem;\n    border-radius: 100%;\n    box-shadow: 0 0 2px 1px rgb(171, 208, 250);\n    margin-right: 1rem ;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    overflow: hidden;\n    flex-shrink:0 ;\n}\n.avatar > img[data-v-0ee8d67a] {\n    max-height:100%;\n}\n.discussion[data-v-0ee8d67a]:hover {\n    background-color: rgb(171, 208, 250);\n    color: black;\n    cursor: pointer;\n}\n.discussion.selected[data-v-0ee8d67a] {\n    background-color: rgba(44, 146, 255, 0.836);\n    color: white;\n}\n.form[data-v-0ee8d67a] {\n    background-color: rgb(188, 219, 255) ;\n    padding: 0.5rem 1rem;\n    display: flex;\n    justify-content: space-between;\n    align-items:  flex-start;\n    box-shadow: 0 1px 2px 1px rgb(188, 219, 255);\n}\n.error[data-v-0ee8d67a] {\n    padding-top: 5px;\n    padding-left: 5px;\n    color: rgb(231, 56, 56);\n}\ninput[data-v-0ee8d67a] {\n    border: none;\n    outline: none;\n    border-radius: 5px;\n    resize: none;\n    \n    flex: 1;\n}\n.group[data-v-0ee8d67a] {\n    width: 100%;\n}\nbutton[data-v-0ee8d67a] {\n      margin-left: 10px ;\n}\n.username[data-v-0ee8d67a] {\n        padding: 0.5rem 0;\n        font-size: 1.1rem;\n        font-weight: 500;\n}\n.meta[data-v-0ee8d67a] {\n    display: flex;\n    justify-content: space-between;\n    padding-bottom: 0.2rem;\n}\n.lastMessage[data-v-0ee8d67a] {\n    flex: 70%;\n}\n.createdAt[data-v-0ee8d67a] {\n    flex: 30%;\n}\n", ""]);
+exports.push([module.i, "\n.header[data-v-0ee8d67a] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.status[data-v-0ee8d67a]  {\n  font-weight: 500;\n  font-size: 0.8rem;\n  color: rgba(255, 121, 44, 0.836);\n}\n.selected .header .status[data-v-0ee8d67a] {\n  color: rgb(255, 58, 58);\n}\n.contactList[data-v-0ee8d67a]{\n      box-shadow : 1px 0 2px 1px rgb(182, 220, 255);\n      height: 100%;\n}\n.discussion[data-v-0ee8d67a] {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 0.5rem 1rem;\n    font: 1.1rem;\n    box-shadow: 0 1px 1px 1px rgb(188, 219, 255);\n}\n.content[data-v-0ee8d67a] {\n    flex: 100%;\n}\n.avatar[data-v-0ee8d67a] {\n    width: 4rem;\n    height: 4rem;\n    border-radius: 100%;\n    box-shadow: 0 0 2px 1px rgb(171, 208, 250);\n    margin-right: 1rem ;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    overflow: hidden;\n    flex-shrink:0 ;\n}\n.avatar > img[data-v-0ee8d67a] {\n    max-height:100%;\n}\n.discussion[data-v-0ee8d67a]:hover {\n    background-color: rgb(171, 208, 250);\n    color: black;\n    cursor: pointer;\n}\n.discussion.selected[data-v-0ee8d67a] {\n    background-color: rgba(44, 146, 255, 0.836);\n    color: white;\n}\n.form[data-v-0ee8d67a] {\n    background-color: rgb(188, 219, 255) ;\n    padding: 0.5rem 1rem;\n    display: flex;\n    justify-content: space-between;\n    align-items:  flex-start;\n    box-shadow: 0 1px 2px 1px rgb(188, 219, 255);\n}\n.error[data-v-0ee8d67a] {\n    padding-top: 5px;\n    padding-left: 5px;\n    color: rgb(231, 56, 56);\n}\ninput[data-v-0ee8d67a] {\n    border: none;\n    outline: none;\n    border-radius: 5px;\n    resize: none;\n    \n    flex: 1;\n}\n.group[data-v-0ee8d67a] {\n    width: 100%;\n}\nbutton[data-v-0ee8d67a] {\n      margin-left: 10px ;\n}\n.username[data-v-0ee8d67a] {\n        padding: 0.5rem 0;\n        font-size: 1.1rem;\n        font-weight: 500;\n}\n.unreadCount[data-v-0ee8d67a] {\n    box-shadow: 0 0 2px 1px white;\n    color: white;\n    border-radius: 10px;\n    padding: 0.3rem 0.6rem;\n    background-color: rgba(253, 71, 39, 0.836) ;\n}\n.meta[data-v-0ee8d67a] {\n    display: flex;\n    justify-content: space-between;\n    padding-bottom: 0.2rem;\n}\n.lastMessage[data-v-0ee8d67a] {\n    flex: 60%;\n}\n.createdAt[data-v-0ee8d67a] {\n    flex: 40%;\n}\n@media(max-width: 1000px) {\n.meta[data-v-0ee8d67a] {\n    flex-direction: column;\n    justify-content: unset;\n}\n.lastMessage[data-v-0ee8d67a] {\n    flex: unset;\n}\n.createdAt[data-v-0ee8d67a] {\n        flex: unset;\n\n    font-size: 0.8rem;\n    justify-self: flex-end;\n}\n}\n", ""]);
 
 // exports
 
@@ -45690,7 +45724,9 @@ var render = function() {
                       _vm._s(message.content) +
                       "\n          "
                   ),
-                  message.views.length > 0 && message.user.id === _vm.auth
+                  message.views.length > 0 &&
+                  message.user.id === _vm.auth &&
+                  message.id > _vm.discussion.length - 1
                     ? _c("div", [
                         _vm._v("\n              viewed\n            ")
                       ])
@@ -45917,6 +45953,12 @@ var render = function() {
                               "\n                              "
                           )
                         ]),
+                        _vm._v(" "),
+                        discussion.unreadCount
+                          ? _c("div", { staticClass: "unreadCount" }, [
+                              _vm._v(" " + _vm._s(discussion.unreadCount))
+                            ])
+                          : _vm._e(),
                         _vm._v(" "),
                         !discussion.users[0].pivot.contact &&
                         discussion.pivot.contact

@@ -13,7 +13,7 @@ class Discussion extends Model
     use HasFactory;
     
     protected $fillable=['name'];
-    
+    protected $appends =['unreadCount'];
     public function messages(){
         return $this->hasMany(Message::class);
     }
@@ -26,4 +26,7 @@ class Discussion extends Model
         return $user->discussions()->whereIn('id' , $u->discussions())->get() ;
     }
 
+    public function  getUnreadCountAttribute(){
+        return $this->messages->map->viewedBy(Auth::user())->countBy()->get(0) ;
+    }
 }

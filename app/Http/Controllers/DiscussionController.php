@@ -26,25 +26,29 @@ class DiscussionController extends Controller
             }  ]);
         },'messages'=> function($query){
             $query->orderBy('created_at' , 'desc');
-        }
+        } 
         ])->latest()->get();
     }
 
-    public function show(Discussion $discussion) {
+    public function show(Request $r ,Discussion $discussion) {
 
-        foreach($discussion->messages()->get() as $message){
-            if(!$message->views->contains(Auth::user())) {
-                $message->views()->attach(Auth::user()) ;
-                event(new Update());
+        if($r->view === "true"){
 
-            }
-        } 
-
+            foreach($discussion->messages()->get() as $message){
+                if(!$message->views->contains(Auth::user())) {
+                    $message->views()->attach(Auth::user()) ;
+                    event(new Update());
+    
+                }
+            } 
+    
+        }
+        
   
 
 
 
-        return $messages =  $discussion->messages()->with(['user','views' => function($query){
+        return $discussion->messages()->with(['user','views' => function($query){
             $query->where('user_id' , '<>' , Auth::id());
         }])->latest()->get();
 

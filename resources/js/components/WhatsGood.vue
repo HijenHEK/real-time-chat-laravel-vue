@@ -24,7 +24,8 @@ import ChatBox from './ChatBox.vue'
             return {
                 discussions : {},
                 discussion : null ,
-                discussion_id : null
+                discussion_id : null,
+                tabFocus : true 
             }
         },
         methods : {
@@ -35,13 +36,40 @@ import ChatBox from './ChatBox.vue'
             
             getDiscussion(discussion) {
                 this.discussion_id = discussion
-                axios.get('/discussions/' + discussion)
+                axios.get('/discussions/' + discussion +'?view=' + this.tabFocus)
                 .then((response) => {this.discussion = response.data})
 
 
+            },
+            detectFocusOut() {
+                    let inView = false;
+
+                    const onWindowFocusChange = (e) => {
+                        if ({ focus: 1, pageshow: 1 }[e.type]) {
+                            if (inView) return;
+                            this.tabFocus = true;
+                            inView = true;
+                        } else if (inView) {
+                            this.tabFocus = !this.tabFocus;
+                            inView = false;
+                        }
+                    };
+
+                    window.addEventListener('focus', onWindowFocusChange);
+                    window.addEventListener('blur', onWindowFocusChange);
+                    window.addEventListener('pageshow', onWindowFocusChange);
+                    window.addEventListener('pagehide', onWindowFocusChange);
+                }
+        },
+        watch :{
+            tabFocus :function(val) {
+                if(val){
+                    this.getDiscussion(this.discussion_id)
+                }
             }
         },
         mounted() {
+            this.detectFocusOut()
             Echo.channel('update')
                 .listen('Update', e => {
                         this.getContactList()

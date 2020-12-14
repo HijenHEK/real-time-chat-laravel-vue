@@ -8,7 +8,7 @@
           <span class="content">
             
           {{message.content}}
-          <div v-if="message.views.length> 0 && message.user.id === auth">
+          <div v-if="message.views.length> 0 && message.user.id === auth && message.id > discussion.length-1">
               viewed
             </div> 
           </span>

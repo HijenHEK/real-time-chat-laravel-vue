@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Message extends Model
 {
@@ -21,5 +22,7 @@ class Message extends Model
     public function viewedBy(User $user){
         return View::where('message_id' , $this->id)->where('user_id' , $user->id )->exists();
     }
-
+    public function viewed(){
+        return $this->views()->where('user_id' , '<>' , Auth::id())->exists(); 
+    }
 }
