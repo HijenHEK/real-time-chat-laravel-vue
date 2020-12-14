@@ -6,21 +6,25 @@
     <div v-for="message in discussion" :key="message.id" class="msg"  :class="message.user.id === auth ? 'send' : 'receive' " >
           
           <span class="content">
-            
-          {{message.content}}
-          <div v-if="message.views.length> 0 && message.user.id === auth && message.id > discussion.length-1">
-              viewed
-            </div> 
+
+          <span class="pre">{{message.content}}</span> 
+          
           </span>
+          <!-- <img class="eye" src="eye.jpg" v-if="message.views.length> 0 && message.user.id === auth && message.id > discussion.length - 1"> -->
+          <div class="avatar" v-if="message.views.length> 0 && message.user.id === auth && message.id > discussion.length - 1">
+          <img :src="message.user.avatar" >
+          </div>
+
           <span class="time">
               {{message.created_at | moment("calendar") | removeToday()}}
           </span>
-          
+              
     </div>
+
   </div>
   
   
-  <form  class="form" @submit.prevent="sendMsg" @keydown="form.onKeydown($event)">
+  <form  class="form"  @submit.prevent="sendMsg" @keypress="handleKeys($event)">
       <textarea v-model="form.content" type="text" name="content"
           class="form-control" :class="{ 'is-invalid': form.errors.has('content') }"></textarea>
 
@@ -54,10 +58,23 @@ export default {
     }
   },
   methods : {
-    sendMsg(){
+    handleKeys(event){
+
+      if (event.keyCode == 13  && !event.shiftKey) {
+        event.preventDefault();
+        this.sendMsg();
+      }
+    }, 
+
+       sendMsg(){
 
       this.form.post('/messages/'+this.id).then((response) => {
         this.form.reset()
+        this.form.fill({
+          content :''
+        })
+        this.form.content.focus();
+        
       })
         
 
@@ -70,7 +87,21 @@ export default {
 </script>
 
 <style scoped>
-
+  .eye {
+    max-width: 1.5rem;
+    margin: 0 0.2rem ;
+  }
+  .avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 100%;
+    overflow: hidden;
+    box-shadow: 0 0 2px 1px rgb(100, 198, 255);
+    margin: 0 0.5rem;
+  }
+  .avatar img {
+    height: 100%;
+  }
   .chat-box {
     height: 100%;
     width: 100%;
@@ -134,6 +165,7 @@ export default {
     min-width: 4rem;
     word-break: break-all ;
     box-shadow: 0 0 1px 1px rgb(0, 162, 255) ;
+    
   }
   .send .content {
     text-align: right;
@@ -155,7 +187,9 @@ export default {
 
 
   }
-
+  .pre {
+    white-space: pre-line;
+  }
   .form {
     margin-top: 10px ;
     background-color: rgb(188, 219, 255) ;

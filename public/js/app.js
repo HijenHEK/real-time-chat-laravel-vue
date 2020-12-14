@@ -1945,6 +1945,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['discussion', 'id', 'auth'],
@@ -1965,11 +1969,23 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    handleKeys: function handleKeys(event) {
+      if (event.keyCode == 13 && !event.shiftKey) {
+        event.preventDefault();
+        this.sendMsg();
+      }
+    },
     sendMsg: function sendMsg() {
       var _this = this;
 
       this.form.post('/messages/' + this.id).then(function (response) {
         _this.form.reset();
+
+        _this.form.fill({
+          content: ''
+        });
+
+        _this.form.content.focus();
       });
     }
   },
@@ -6687,7 +6703,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.chat-box[data-v-5142db38] {\n  height: 100%;\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: space-between;\n  background-color: rgb(232, 241, 252) ;\n}\n.discussion[data-v-5142db38] {\n  display: flex;\n  flex-direction: column-reverse;\n  width: 100%;\n  height: 100%;\n  overflow-y: scroll;\n  overflow-x:hidden;\n}\n/*.discussion::-webkit-scrollbar-track-piece {\n    color: rgb(0, 0, 0);\n    border-radius: 5px;\n}\n .discussion::-webkit-scrollbar-corner {\n    display: none;\n}\n\n.discussion::-webkit-scrollbar-track {\n    box-shadow: inset 0 0 5px rgb(0, 162, 255); \n\n    max-width: 7px;\n    color: rgb(0, 132, 255);\n    background-color: rgb(232, 241, 252);\n\n}*/\n.msg[data-v-5142db38] {\n\n  margin: 0.5rem;\n\n  max-width: 80%;\n  display: flex;\n  align-items: flex-end;\n}\n.msg:last-child .content[data-v-5142db38]::before{\n  content: '';\n  padding: 5rem;\n}\n.time[data-v-5142db38] {\n  margin: 0.5rem;\n  font-size: 0.7rem;\n  opacity: 0.1;\n}\n.msg:hover .time[data-v-5142db38]{\n  opacity: 0.8;\n  transition:all 0.5s ease-in-out;\n}\n.msg .content[data-v-5142db38] {\n  color: white;\n  padding: 0.5rem 1rem;\n  border-radius:  5px;\n  min-width: 4rem;\n  word-break: break-all ;\n  box-shadow: 0 0 1px 1px rgb(0, 162, 255) ;\n}\n.send .content[data-v-5142db38] {\n  text-align: right;\n  background-color: rgb(0, 132, 255) ;\n}\n.receive .content[data-v-5142db38] {\n  text-align: right;\n      background-color: rgb(0, 162, 255) ;\n}\n.send[data-v-5142db38] {\n  align-self: flex-end;\n  text-align: right;\n  flex-direction: row-reverse;\n}\n.receive[data-v-5142db38] {\n  align-self: flex-start;\n}\n.form[data-v-5142db38] {\n  margin-top: 10px ;\n  background-color: rgb(188, 219, 255) ;\n  padding: 0.5rem 1rem;\n  display: flex;\n  justify-content: space-between;\n  align-items:  flex-end;\n  box-shadow: 0 -1px 2px 1px rgb(188, 219, 255);\n}\ntextarea[data-v-5142db38] {\n  border: none;\n  outline: none;\n  border-radius: 5px;\n  resize: none;\n  flex: 1;\n}\nbutton[data-v-5142db38] {\n    margin-left: 10px ;\n    margin-bottom: 5px ;\n}\n", ""]);
+exports.push([module.i, "\n.eye[data-v-5142db38] {\n  max-width: 1.5rem;\n  margin: 0 0.2rem ;\n}\n.avatar[data-v-5142db38] {\n  width: 1.5rem;\n  height: 1.5rem;\n  border-radius: 100%;\n  overflow: hidden;\n  box-shadow: 0 0 2px 1px rgb(100, 198, 255);\n  margin: 0 0.5rem;\n}\n.avatar img[data-v-5142db38] {\n  height: 100%;\n}\n.chat-box[data-v-5142db38] {\n  height: 100%;\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: space-between;\n  background-color: rgb(232, 241, 252) ;\n}\n.discussion[data-v-5142db38] {\n  display: flex;\n  flex-direction: column-reverse;\n  width: 100%;\n  height: 100%;\n  overflow-y: scroll;\n  overflow-x:hidden;\n}\n/*.discussion::-webkit-scrollbar-track-piece {\n    color: rgb(0, 0, 0);\n    border-radius: 5px;\n}\n .discussion::-webkit-scrollbar-corner {\n    display: none;\n}\n\n.discussion::-webkit-scrollbar-track {\n    box-shadow: inset 0 0 5px rgb(0, 162, 255); \n\n    max-width: 7px;\n    color: rgb(0, 132, 255);\n    background-color: rgb(232, 241, 252);\n\n}*/\n.msg[data-v-5142db38] {\n\n  margin: 0.5rem;\n\n  max-width: 80%;\n  display: flex;\n  align-items: flex-end;\n}\n.msg:last-child .content[data-v-5142db38]::before{\n  content: '';\n  padding: 5rem;\n}\n.time[data-v-5142db38] {\n  margin: 0.5rem;\n  font-size: 0.7rem;\n  opacity: 0.1;\n}\n.msg:hover .time[data-v-5142db38]{\n  opacity: 0.8;\n  transition:all 0.5s ease-in-out;\n}\n.msg .content[data-v-5142db38] {\n  color: white;\n  padding: 0.5rem 1rem;\n  border-radius:  5px;\n  min-width: 4rem;\n  word-break: break-all ;\n  box-shadow: 0 0 1px 1px rgb(0, 162, 255) ;\n}\n.send .content[data-v-5142db38] {\n  text-align: right;\n  background-color: rgb(0, 132, 255) ;\n}\n.receive .content[data-v-5142db38] {\n  text-align: right;\n      background-color: rgb(0, 162, 255) ;\n}\n.send[data-v-5142db38] {\n  align-self: flex-end;\n  text-align: right;\n  flex-direction: row-reverse;\n}\n.receive[data-v-5142db38] {\n  align-self: flex-start;\n}\n.pre[data-v-5142db38] {\n  white-space: pre-line;\n}\n.form[data-v-5142db38] {\n  margin-top: 10px ;\n  background-color: rgb(188, 219, 255) ;\n  padding: 0.5rem 1rem;\n  display: flex;\n  justify-content: space-between;\n  align-items:  flex-end;\n  box-shadow: 0 -1px 2px 1px rgb(188, 219, 255);\n}\ntextarea[data-v-5142db38] {\n  border: none;\n  outline: none;\n  border-radius: 5px;\n  resize: none;\n  flex: 1;\n}\nbutton[data-v-5142db38] {\n    margin-left: 10px ;\n    margin-bottom: 5px ;\n}\n", ""]);
 
 // exports
 
@@ -45719,19 +45735,18 @@ var render = function() {
               },
               [
                 _c("span", { staticClass: "content" }, [
-                  _vm._v(
-                    "\n            \n          " +
-                      _vm._s(message.content) +
-                      "\n          "
-                  ),
-                  message.views.length > 0 &&
-                  message.user.id === _vm.auth &&
-                  message.id > _vm.discussion.length - 1
-                    ? _c("div", [
-                        _vm._v("\n              viewed\n            ")
-                      ])
-                    : _vm._e()
+                  _c("span", { staticClass: "pre" }, [
+                    _vm._v(_vm._s(message.content))
+                  ])
                 ]),
+                _vm._v(" "),
+                message.views.length > 0 &&
+                message.user.id === _vm.auth &&
+                message.id > _vm.discussion.length - 1
+                  ? _c("div", { staticClass: "avatar" }, [
+                      _c("img", { attrs: { src: message.user.avatar } })
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("span", { staticClass: "time" }, [
                   _vm._v(
@@ -45759,8 +45774,8 @@ var render = function() {
                 $event.preventDefault()
                 return _vm.sendMsg($event)
               },
-              keydown: function($event) {
-                return _vm.form.onKeydown($event)
+              keypress: function($event) {
+                return _vm.handleKeys($event)
               }
             }
           },
