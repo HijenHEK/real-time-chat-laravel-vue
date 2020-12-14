@@ -11,7 +11,7 @@
           
           </span>
           <!-- <img class="eye" src="eye.jpg" v-if="message.views.length> 0 && message.user.id === auth && message.id > discussion.length - 1"> -->
-          <div class="avatar" v-if="message.views.length> 0 && message.user.id === auth && message.id > discussion.data.length - 1">
+          <div class="avatar" v-if="message.views.length> 0 && message.user.id === auth && message.id > discussion.total - 1">
           <img :src="message.user.avatar" >
           </div>
 
@@ -88,7 +88,7 @@ export default {
 
     },
     handleScroll(e){
-      console.log(e.target.value)
+      console.log(e)
     },
     handleKeys(event){
 

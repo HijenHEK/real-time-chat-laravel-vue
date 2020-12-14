@@ -12104,7 +12104,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     handleScroll: function handleScroll(e) {
-      console.log(e.target.value);
+      console.log(e);
     },
     handleKeys: function handleKeys(event) {
       if (event.keyCode == 13 && !event.shiftKey) {
@@ -55960,7 +55960,7 @@ var render = function() {
                   _vm._v(" "),
                   message.views.length > 0 &&
                   message.user.id === _vm.auth &&
-                  message.id > _vm.discussion.data.length - 1
+                  message.id > _vm.discussion.total - 1
                     ? _c("div", { staticClass: "avatar" }, [
                         _c("img", { attrs: { src: message.user.avatar } })
                       ])
