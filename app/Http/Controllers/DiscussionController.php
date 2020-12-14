@@ -50,7 +50,7 @@ class DiscussionController extends Controller
 
         return $discussion->messages()->with(['user','views' => function($query){
             $query->where('user_id' , '<>' , Auth::id());
-        }])->latest()->paginate(10);
+        }])->latest()->paginate(20);
 
         
         // return $discussion->messages()->with(['user','views'])->latest()->get();

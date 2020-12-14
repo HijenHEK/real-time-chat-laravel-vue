@@ -2,7 +2,7 @@
 <div class="chat-box" v-if="discussion && id">
 
 
-  <div class="discussion" ref="discussion" >
+  <div class="discussion" ref="dis" >
     <div v-for="message in discussion.data" :key="message.id" class="msg"  :class="message.user.id === auth ? 'send' : 'receive' " >
           
           <span class="content">
@@ -34,7 +34,9 @@
           </span>
               
     </div>
-    <button v-if="page < discussion.last_page " @click="loadMore()" class="btn btn-light"> more ...</button>
+   
+   <button v-if="page < discussion.last_page " @click="loadMore()" class="btn btn-light"> more ...</button>
+   <span v-else class="btn btn-light disabled">no more messages !</span>
   </div>
   
   
@@ -60,7 +62,7 @@ export default {
       form : new Form({
         content : ''
       }),
-      discussionLoad : {},
+      discussionLoad : [],
       page : 1,
 
     }
@@ -74,17 +76,19 @@ export default {
     }
   },
   methods : {
+    
     loadMore(){
                 
-        this.page++     
+        this.page++
         axios.get('/discussions/' + this.id +'?page=' + this.page)
-        .then((response) => {
-          this.discussionLoad = { ...this.discussionLoad , ...response.data.data }
-          
+        .then(response => response.data.data)
+        .then(data => {
+          data.forEach(element => {
+              this.discussionLoad.push(element)
+          });
         })
-
-    },
     
+    },
     handleKeys(event){
 
       if (event.keyCode == 13  && !event.shiftKey) {
@@ -107,9 +111,9 @@ export default {
 
     }
   },
-  mounted() {
-    
+  mounted(){
   }
+
 }
 </script>
 
