@@ -38,8 +38,8 @@
       </div>
     </div>
 
-      <div v-for="discussion in discussions"  :key="discussion.index"  @click="selectDiscussion(discussion)" >
-              <div v-if="discussion.users[0].requests_in[0] || discussion.users[0].requests_out[0]" class="discussion" :class="discussionItemClass(discussion)" >
+      <div  v-for="discussion in discussions"  :key="discussion.index"  @click="selectDiscussion(discussion)" >
+              <div v-if="discussion.users.length && (discussion.users[0].requests_in[0] || discussion.users[0].requests_out[0])" class="discussion" :class="discussionItemClass(discussion)" >
                 
                     <div  class="avatar" >
                            <img :src="discussion.users[0].avatar" alt="" srcset="">
@@ -135,7 +135,9 @@ export default {
     selectDiscussion(el){
       if(el.pivot.contact && el.users[0].pivot.contact) {
           this.$emit('discussion-selected' , el.id)
-          this.collapse()
+          if(window.innerWidth < 801) {
+            this.collapse()
+          }
       }
     },
     addContact(){
@@ -179,8 +181,13 @@ export default {
       }
     }
   },
+  
+  
   mounted() {
-    console.log(this.discussions)
+    window.addEventListener('resize', () => {
+       this.compact =  window.innerWidth > 800 ? false : true
+           
+      });
   }
 }
 </script>

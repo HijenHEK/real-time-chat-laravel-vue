@@ -91,7 +91,21 @@
 </div>
 
 
+<script>
+        // display chosen avatar
 
+        document.getElementById('av-input').addEventListener('change' , (e)=>{
+        var reader = new FileReader();
+    
+            reader.onload = function (e) {
+                document.getElementById('av').src= e.target.result;
+            }
+        reader.readAsDataURL(document.getElementById('av-input').files[0]);
+        // console.log(e.target.result);
+        // document.getElementById('av').src = e.target.file[0]
+    });
+
+</script>
 
 
 @endsection

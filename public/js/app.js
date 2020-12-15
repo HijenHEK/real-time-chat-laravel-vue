@@ -12284,7 +12284,10 @@ __webpack_require__.r(__webpack_exports__);
     selectDiscussion: function selectDiscussion(el) {
       if (el.pivot.contact && el.users[0].pivot.contact) {
         this.$emit('discussion-selected', el.id);
-        this.collapse();
+
+        if (window.innerWidth < 801) {
+          this.collapse();
+        }
       }
     },
     addContact: function addContact() {
@@ -12326,7 +12329,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log(this.discussions);
+    var _this3 = this;
+
+    window.addEventListener('resize', function () {
+      _this3.compact = window.innerWidth > 800 ? false : true;
+    });
   }
 });
 
@@ -56286,8 +56293,9 @@ var render = function() {
             }
           },
           [
-            discussion.users[0].requests_in[0] ||
-            discussion.users[0].requests_out[0]
+            discussion.users.length &&
+            (discussion.users[0].requests_in[0] ||
+              discussion.users[0].requests_out[0])
               ? _c(
                   "div",
                   {
@@ -76577,16 +76585,6 @@ Vue.component('font-awesome-icon', _fortawesome_vue_fontawesome__WEBPACK_IMPORTE
 
 var app = new Vue({
   el: '#app'
-});
-document.getElementById('av-input').addEventListener('change', function (e) {
-  var reader = new FileReader();
-
-  reader.onload = function (e) {
-    document.getElementById('av').src = e.target.result;
-  };
-
-  reader.readAsDataURL(document.getElementById('av-input').files[0]); // console.log(e.target.result);
-  // document.getElementById('av').src = e.target.file[0]
 });
 
 /***/ }),
