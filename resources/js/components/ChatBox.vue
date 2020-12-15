@@ -1,4 +1,5 @@
 <template>
+
 <div class="chat-box" v-if="discussion && id">
 
 
@@ -48,7 +49,17 @@
   </form>
 </div>
 
-  
+  <div v-else class="chat-box">
+
+      <div class="welcome">
+      <h1>Welcome to WhatsGood</h1>
+      <h4>Select a conversation and start texting</h4>
+      
+      </div>
+      
+
+
+  </div>
 
 
 </template>
@@ -118,6 +129,13 @@ export default {
 </script>
 
 <style scoped>
+.welcome {
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 10rem;
+  color: rgba(19, 80, 138, 0.685);
+  text-shadow: 0 0 2px 1px rgb(71, 71, 71);
+}
   .eye {
     max-width: 1.5rem;
     margin: 0 0.2rem ;

@@ -12069,6 +12069,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['discussion', 'id', 'auth'],
@@ -16924,7 +16935,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.eye[data-v-5142db38] {\n  max-width: 1.5rem;\n  margin: 0 0.2rem ;\n}\n.avatar[data-v-5142db38] {\n  width: 1.5rem;\n  height: 1.5rem;\n  border-radius: 100%;\n  overflow: hidden;\n  box-shadow: 0 0 2px 1px rgb(100, 198, 255);\n  margin: 0 0.5rem;\n}\n.avatar img[data-v-5142db38] {\n  height: 100%;\n}\n.chat-box[data-v-5142db38] {\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: space-between;\n  background-color: rgb(232, 241, 252) ;\n  flex: 1;\n  width: 100%;\n}\n.discussion[data-v-5142db38] {\n  display: flex;\n  flex-direction: column-reverse;\n  width: 100%;\n  height: 100%;\n  overflow-y: scroll;\n  overflow-x:hidden;\n}\n/*.discussion::-webkit-scrollbar-track-piece {\n    color: rgb(0, 0, 0);\n    border-radius: 5px;\n}\n .discussion::-webkit-scrollbar-corner {\n    display: none;\n}\n\n.discussion::-webkit-scrollbar-track {\n    box-shadow: inset 0 0 5px rgb(0, 162, 255); \n\n    max-width: 7px;\n    color: rgb(0, 132, 255);\n    background-color: rgb(232, 241, 252);\n\n}*/\n.msg[data-v-5142db38] {\n\n  margin: 0.5rem;\n\n  max-width: 80%;\n  display: flex;\n  align-items: flex-end;\n}\n.msg:last-child .content[data-v-5142db38]::before{\n  content: '';\n  padding: 5rem;\n}\n.time[data-v-5142db38] {\n  margin: 0.5rem;\n  font-size: 0.7rem;\n  opacity: 0.1;\n}\n.msg:hover .time[data-v-5142db38]{\n  opacity: 0.8;\n  transition:all 0.5s ease-in-out;\n}\n.msg .content[data-v-5142db38] {\n  color: white;\n  padding: 0.5rem 1rem;\n  border-radius:  5px;\n  min-width: 4rem;\n  word-break: break-all ;\n  box-shadow: 0 0 1px 1px rgb(0, 162, 255) ;\n}\n.send .content[data-v-5142db38] {\n  text-align: right;\n  background-color: rgb(0, 132, 255) ;\n}\n.receive .content[data-v-5142db38] {\n  text-align: right;\n      background-color: rgb(0, 162, 255) ;\n}\n.send[data-v-5142db38] {\n  align-self: flex-end;\n  text-align: right;\n  flex-direction: row-reverse;\n}\n.receive[data-v-5142db38] {\n  align-self: flex-start;\n}\n.pre[data-v-5142db38] {\n  white-space: pre-line;\n}\n.form[data-v-5142db38] {\n  margin-top: 10px ;\n  background-color: rgb(188, 219, 255) ;\n  padding: 0.5rem 1rem;\n  display: flex;\n  justify-content: space-between;\n  align-items:  flex-end;\n  box-shadow: 0 -1px 2px 1px rgb(188, 219, 255);\n}\ntextarea[data-v-5142db38] {\n  border: none;\n  outline: none;\n  border-radius: 5px;\n  resize: none;\n  flex: 1;\n}\nbutton[data-v-5142db38] {\n    margin-left: 10px ;\n    margin-bottom: 5px ;\n}\n@media(max-width: 800px) {\n.chat-box[data-v-5142db38] {\n        margin-left: 3rem;\n}\n}\n", ""]);
+exports.push([module.i, "\n.welcome[data-v-5142db38] {\n  margin: 0 auto;\n  text-align: center;\n  margin-bottom: 10rem;\n  color: rgba(19, 80, 138, 0.685);\n  text-shadow: 0 0 2px 1px rgb(71, 71, 71);\n}\n.eye[data-v-5142db38] {\n    max-width: 1.5rem;\n    margin: 0 0.2rem ;\n}\n.avatar[data-v-5142db38] {\n    width: 1.5rem;\n    height: 1.5rem;\n    border-radius: 100%;\n    overflow: hidden;\n    box-shadow: 0 0 2px 1px rgb(100, 198, 255);\n    margin: 0 0.5rem;\n}\n.avatar img[data-v-5142db38] {\n    height: 100%;\n}\n.chat-box[data-v-5142db38] {\n    height: 100%;\n    display: flex;\n    justify-content: center;\n    flex-direction: column;\n    align-items: space-between;\n    background-color: rgb(232, 241, 252) ;\n    flex: 1;\n    width: 100%;\n}\n.discussion[data-v-5142db38] {\n    display: flex;\n    flex-direction: column-reverse;\n    width: 100%;\n    height: 100%;\n    overflow-y: scroll;\n    overflow-x:hidden;\n}\n  /*.discussion::-webkit-scrollbar-track-piece {\n      color: rgb(0, 0, 0);\n      border-radius: 5px;\n  }\n   .discussion::-webkit-scrollbar-corner {\n      display: none;\n  }\n\n  .discussion::-webkit-scrollbar-track {\n      box-shadow: inset 0 0 5px rgb(0, 162, 255); \n\n      max-width: 7px;\n      color: rgb(0, 132, 255);\n      background-color: rgb(232, 241, 252);\n\n  }*/\n.msg[data-v-5142db38] {\n\n    margin: 0.5rem;\n\n    max-width: 80%;\n    display: flex;\n    align-items: flex-end;\n}\n.msg:last-child .content[data-v-5142db38]::before{\n    content: '';\n    padding: 5rem;\n}\n.time[data-v-5142db38] {\n    margin: 0.5rem;\n    font-size: 0.7rem;\n    opacity: 0.1;\n}\n.msg:hover .time[data-v-5142db38]{\n    opacity: 0.8;\n    transition:all 0.5s ease-in-out;\n}\n.msg .content[data-v-5142db38] {\n    color: white;\n    padding: 0.5rem 1rem;\n    border-radius:  5px;\n    min-width: 4rem;\n    word-break: break-all ;\n    box-shadow: 0 0 1px 1px rgb(0, 162, 255) ;\n}\n.send .content[data-v-5142db38] {\n    text-align: right;\n    background-color: rgb(0, 132, 255) ;\n}\n.receive .content[data-v-5142db38] {\n    text-align: right;\n        background-color: rgb(0, 162, 255) ;\n}\n.send[data-v-5142db38] {\n    align-self: flex-end;\n    text-align: right;\n    flex-direction: row-reverse;\n}\n.receive[data-v-5142db38] {\n    align-self: flex-start;\n}\n.pre[data-v-5142db38] {\n    white-space: pre-line;\n}\n.form[data-v-5142db38] {\n    margin-top: 10px ;\n    background-color: rgb(188, 219, 255) ;\n    padding: 0.5rem 1rem;\n    display: flex;\n    justify-content: space-between;\n    align-items:  flex-end;\n    box-shadow: 0 -1px 2px 1px rgb(188, 219, 255);\n}\ntextarea[data-v-5142db38] {\n    border: none;\n    outline: none;\n    border-radius: 5px;\n    resize: none;\n    flex: 1;\n}\nbutton[data-v-5142db38] {\n      margin-left: 10px ;\n      margin-bottom: 5px ;\n}\n@media(max-width: 800px) {\n.chat-box[data-v-5142db38] {\n          margin-left: 3rem;\n}\n}\n", ""]);
 
 // exports
 
@@ -56085,9 +56096,20 @@ var render = function() {
           ]
         )
       ])
-    : _vm._e()
+    : _c("div", { staticClass: "chat-box" }, [_vm._m(0)])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "welcome" }, [
+      _c("h1", [_vm._v("Welcome to WhatsGood")]),
+      _vm._v(" "),
+      _c("h4", [_vm._v("Select a conversation and start texting")])
+    ])
+  }
+]
 render._withStripped = true
 
 
