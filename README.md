@@ -1,6 +1,6 @@
 # WhatsGood
 
-## Real time chat app with Laravel and Vuejs
+## Real time chat app demo with Laravel and Vuejs
 
 Real time chat app with Laravel and Vuejs that utilises [Laravel-websockets](https://github.com/beyondcode/laravel-websockets) &  [laravel-echo](https://www.npmjs.com/package/laravel-echo)
 
