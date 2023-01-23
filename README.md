@@ -11,6 +11,7 @@ Real time chat app with Laravel and Vuejs that utilises [Laravel-websockets](htt
 - `cp .env.example .env` then add you database connection details
 - `php artisan migrate` use `--seed` to get some seed users and some messages (./database/seeders/DatabaseSeeder.php)
 - `npm install`
+- `npm run dev`
 - `php artisan serve`
    
 ## features 
